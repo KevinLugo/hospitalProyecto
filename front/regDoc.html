@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
+    <title>Document</title>
+</head>
+<body>
+ <div class="form-container">
+    <div class="form-header" style="background-color: #d40a00;"">Datos del doctor</div>
+    <div class="button-group">
+        <input type="button" id="boton1" value="Volver" class="button-continue">
+      </div>
+    <form>
+    <label for="ced">Cedula</label>
+        <input type="text" id="curp" placeholder="Escriba el numero de cedula" name="cedula">
+
+    <label for="RFC">RFC</label>
+        <input type="text" id="rfc" placeholder="Escriba su RFC" name="rfc">
+
+    <label for="usuario">Usuario</label>
+        <input type="text" id="user" placeholder="Escriba el nombre de usuario" name="user">
+
+    <label for="contra">Contarseña</label>
+        <input type="password" id="psw" placeholder="Escriba su contarseña" name="psw">
+
+    <label for="nombre">Nombre</label>
+        <input type="text" id="nom" placeholder="Escriba su nombre" name="nom">
+
+    <label for="APP">Apellido paterno</label>
+        <input type="text" id="apPat" placeholder="Escriba su apellido paterno" name="apPat">
+
+    <label for="APM">Apellido materno</label>
+        <input type="text" id="apMat" placeholder="Escriba su apellido materno" name="apMat">
+
+    <label for="nacimiento">Fecha de nacimiento</label>
+        <input type="date" id="fechaNac" name="fechaNac" min="1900-01-01">
+
+    <label for="telef">Telefono</label>
+        <input type="text" id="tel" placeholder="Escriba su telefono" name="telef">
+
+    <label for="co">Correo</label>
+        <input type="text" id="correo" placeholder="Escriba su correo" name="co">
+
+    <label for="NoEspe">Numero de especialidades</label>
+        <label for="nose">Imaginense k aka pregunta kuantas son y le pongo aka barias dependiendo d kuantas me diga k tiene</label>
+
+    <label for="espe">Especialidad</label>        
+        <select name="especialidad" id="esp">
+            <option value="" selected>Elige una opción...</option>
+            <option value="general">Medicina general</option>
+            <option value="cardiologia">Cardiologia</option>
+            <option value="dermatologia">Dermatologia</option>
+            <option value="ginecologia">Ginecologia</option>
+            <option value="nefrologia">Nefrologia</option>
+            <option value="nutriologia">Nutriologia</option>
+            <option value="oftalmologia">Oftalmologia</option>
+            <option value="oncologia">Oncologia</option>
+            <option value="ortopedia">Ortopedia</option>
+            <option value="pediatra">Pediatra</option>
+        </select>
+
+    <label for="salario">Salario</label>
+        <label for="salario2">Su salario es de: imaginense k ago kalkulos pa saber cuanto baganar</label>
+
+    <label for="consultorios disponibles">Consultorios disponibles</label>
+        <label for="con2">Imaginense k aka ago buskeda de los konsultorios y se los pongo en lista despegable</label>
+
+    <div class="button-group">
+        <button type="submit" class="button-save" id="boton2">Guardar</button>
+    </form>
+<script src="regPac.js"></script>
+</div>
+</body>
+</script>
+</html>
+

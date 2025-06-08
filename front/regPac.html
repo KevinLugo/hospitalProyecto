@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
+    <title>Document</title>
+</head>
+<body>
+ <div class="form-container">
+    <div class="form-header" style="background-color: #00aaf0;">Datos del paciente</div>
+    <div class="button-group">
+        <input type="button" id="boton1" value="Volver" class="button-continue">
+      </div>
+    <form>
+    <label for="CURP">CURP</label>
+        <input type="text" id="curp" placeholder="Escriba su CURP" name="curp">
+
+    <label for="usuario">Usuario</label>
+        <input type="text" id="user" placeholder="Escriba el nombre de usuario" name="user">
+
+    <label for="contra">Contarseña</label>
+        <input type="password" id="psw" placeholder="Escriba su contarseña" name="psw">
+
+    <label for="nombre">Nombre</label>
+        <input type="text" id="nom" placeholder="Escriba su nombre" name="nom">
+
+    <label for="APP">Apellido paterno</label>
+        <input type="text" id="apPat" placeholder="Escriba su apellido paterno" name="apPat">
+
+    <label for="APM">Apellido materno</label>
+        <input type="text" id="apMat" placeholder="Escriba su apellido materno" name="apMat">
+
+    <label for="nacimiento">Fecha de nacimiento</label>
+        <input type="date" id="fechaNac" name="fechaNac" min="1900-01-01">
+
+    <label for="telef">Telefono</label>
+        <input type="text" id="tel" placeholder="Escriba su telefono" name="tel">
+
+    <label for="co">Correo</label>
+        <input type="text" id="correo" placeholder="Escriba su correo" name="correo">
+
+    <label for="estatura">Estatura</label>
+        <input type="text" id="estatura" placeholder="Escriba su estatura" name="estatura">
+
+    <label for="nombreSeg">Nombre del seguro</label>        
+    <select name="nomSeg" id="nomSeg">
+        <option value="" selected>Elige una opción...</option>
+        <option value="issemym">ISSEMYM</option>
+        <option value="issste">ISSSTE</option>
+        <option value="ninguno">Ninguno</option>
+        <option value="otro">Otro</option>
+    </select>
+
+    <div id="otroTexto" style="display: none;">
+        <label for="otroTexto">Nombre del seguro</label>
+        <input type="text" id="otroTex" placeholder="Ingresa tu nombre del seguro">
+    </div>
+
+    <label for="tipo de sangre">Tipo de sangre</label>  
+    <select name="tipoSangre" id="tipoSangre">
+        <option value="" selected>Elige una opción...</option>
+        <option value="a">A</option>
+        <option value="o">O</option>
+    </select>
+
+    <label for="alergias">¿Tiene alergias?</label>
+    <form>
+        <label>
+          <input type="radio" name="opcion" id="op1" value="si">Si</label>
+        <label>
+          <input type="radio" name="opcion" id="op2" value="no">No</label>
+      </form>
+
+    <div id="otroTexto2" style="display: none;">
+        <label for="otroTexto2">¿Cuales son?</label>
+        <input type="text" id="otroTex2" placeholder="Escriba a que es alergico usted">
+    </div>
+    <form>
+    <label for="antes">Antecedentes familiares</label>
+        <input type="text" id="antes" placeholder="Escriba sus antecedentes medicos familaires" name="antes">
+    </form>
+    
+    <form>
+        <label for="vacunas">Vacunas</label>
+        <label>
+          <input type="checkbox" name="vac" value="BGC">Tuberculosis</label>
+        <label>
+          <input type="checkbox" name="vac" value="hepatititsB">Hepatitis B</label>
+        <label>
+          <input type="checkbox" name="vac" value="sabin">Poliomielitis</label>
+        <label>
+          <input type="checkbox" name="vac" value="rotavirus">Rotaviruz</label>
+        <label>
+          <input type="checkbox" name="vac" value="tripleViral">Triple viral</label>
+        <label>
+          <input type="checkbox" name="vac" value="Neumococo">neumococo</label>
+        <label>
+          <input type="checkbox" name="vac" value="pentavaliente">Pentavaliente</label>
+        <label>
+          <input type="checkbox" name="vac" value="influenza">Influenza</label>
+        <label>
+          <input type="checkbox" name="vac" value="VPH">Virus del papiloma humano</label>
+        <label>
+          <input type="checkbox" name="vac" value="hepatitisA">Hepatitis A</label>
+        <label>
+          <input type="checkbox" name="vac" value="covid">SARS-CoV-2</label>      
+      </form>
+    <form>
+      <label for="EnfermedadesCron">¿Tiene Enfermedades cronicas?</label>
+        <label>
+          <input type="radio" name="opc" id="op11" value="si">Si</label>
+        <label>
+          <input type="radio" name="opc" id="op22" value="no">No</label>
+      </form>
+    <div id="otroTexto3" style="display: none;">
+        <label for="otroTexto3">¿Cuales son?</label>
+        <input type="text" id="otroTex3" placeholder="Escriba a que enfermamdes cronicas tiene usted">
+    </div>
+    <div class="button-group">
+        <button type="submit" class="button-save" id="boton2">Guardar</button>
+    </form>
+<script src="regPac.js"></script>
+</div>
+</body>
+</script>
+</html>
+
