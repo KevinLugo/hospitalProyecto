@@ -109,3 +109,6 @@ body {
     -moz-appearance: none;
     position: relative;
   }
+input::placeholder {
+  text-transform: none; /* Evita que el placeholder se vuelva mayúsculas */
+}

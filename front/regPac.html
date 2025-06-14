@@ -14,34 +14,34 @@
       </div>
     <form>
     <label for="CURP">CURP</label>
-        <input type="text" id="curp" placeholder="Escriba su CURP" name="curp">
-
+        <input type="text" id="curp" placeholder="Escriba su CURP" name="curp" maxlength="18" style="text-transform: uppercase;">
+        
     <label for="usuario">Usuario</label>
-        <input type="text" id="user" placeholder="Escriba el nombre de usuario" name="user">
+        <input type="text" id="user" placeholder="Escriba el nombre de usuario" name="user" maxlength="20">
 
     <label for="contra">Contarseña</label>
-        <input type="password" id="psw" placeholder="Escriba su contarseña" name="psw">
+        <input type="password" id="psw" placeholder="Escriba su contarseña" name="psw" maxlength="20">
 
     <label for="nombre">Nombre</label>
-        <input type="text" id="nom" placeholder="Escriba su nombre" name="nom">
+        <input type="text" id="nom" placeholder="Escriba su nombre" name="nom" maxlength="20">
 
     <label for="APP">Apellido paterno</label>
-        <input type="text" id="apPat" placeholder="Escriba su apellido paterno" name="apPat">
+        <input type="text" id="apPat" placeholder="Escriba su apellido paterno" name="apPat" maxlength="20">
 
     <label for="APM">Apellido materno</label>
-        <input type="text" id="apMat" placeholder="Escriba su apellido materno" name="apMat">
+        <input type="text" id="apMat" placeholder="Escriba su apellido materno" name="apMat" maxlength="20">
 
     <label for="nacimiento">Fecha de nacimiento</label>
         <input type="date" id="fechaNac" name="fechaNac" min="1900-01-01">
 
     <label for="telef">Telefono</label>
-        <input type="text" id="tel" placeholder="Escriba su telefono" name="tel">
+        <input type="text" id="tel" placeholder="Escriba su telefono" name="tel" maxlength="10">
 
     <label for="co">Correo</label>
-        <input type="text" id="correo" placeholder="Escriba su correo" name="correo">
+        <input type="text" id="correo" placeholder="Escriba su correo" name="correo" maxlength="50">
 
-    <label for="estatura">Estatura</label>
-        <input type="text" id="estatura" placeholder="Escriba su estatura" name="estatura">
+    <label for="estatura">Estatura (en metros)</label>
+        <input type="text" id="estatura" placeholder="Escriba su estatura" name="estatura" maxlength="5">
 
     <label for="nombreSeg">Nombre del seguro</label>        
     <select name="nomSeg" id="nomSeg">
@@ -54,7 +54,7 @@
 
     <div id="otroTexto" style="display: none;">
         <label for="otroTexto">Nombre del seguro</label>
-        <input type="text" id="otroTex" placeholder="Ingresa tu nombre del seguro">
+        <input type="text" id="otroTex" placeholder="Ingresa tu nombre del seguro" maxlength="20">
     </div>
 
     <label for="tipo de sangre">Tipo de sangre</label>  
@@ -71,14 +71,15 @@
         <label>
           <input type="radio" name="opcion" id="op2" value="no">No</label>
       </form>
-
-    <div id="otroTexto2" style="display: none;">
-        <label for="otroTexto2">¿Cuales son?</label>
-        <input type="text" id="otroTex2" placeholder="Escriba a que es alergico usted">
-    </div>
+    <form>
+      <div id="otroTexto2" style="display: none;">
+          <label for="otroTexto2">¿Cuales son?</label>
+          <input type="text" id="otroTex2" placeholder="Escriba a que es alergico usted" maxlength="20">
+      </div>
+    </form>
     <form>
     <label for="antes">Antecedentes familiares</label>
-        <input type="text" id="antes" placeholder="Escriba sus antecedentes medicos familaires" name="antes">
+        <input type="text" id="antes" placeholder="Escriba sus antecedentes medicos familaires" name="antes" maxlength="20">
     </form>
     
     <form>
@@ -113,10 +114,12 @@
         <label>
           <input type="radio" name="opc" id="op22" value="no">No</label>
       </form>
-    <div id="otroTexto3" style="display: none;">
-        <label for="otroTexto3">¿Cuales son?</label>
-        <input type="text" id="otroTex3" placeholder="Escriba a que enfermamdes cronicas tiene usted">
-    </div>
+    <form>
+      <div id="otroTexto3" style="display: none;">
+          <label for="otroTexto3">¿Cuales son?</label>
+          <input type="text" id="otroTex3" placeholder="Escriba a que enfermamdes cronicas tiene usted" maxlength="20">
+      </div>
+    </form>
     <div class="button-group">
         <button type="submit" class="button-save" id="boton2">Guardar</button>
     </form>

@@ -1,9 +1,10 @@
 import mssql from "mssql";
+
 //configuracion maisikuel
 const cnSet = {
   server: 'localhost',
   port: 1434,
-  database: 'prueba1',
+  database: 'prueba2',
   user: 'sa',
   password: '123',
   options: {
@@ -11,6 +12,7 @@ const cnSet = {
     trustServerCertificate: true
   }
 };
+
 //le echa ganaz para conectar
 export async function cn() {
   try {
@@ -20,3 +22,4 @@ export async function cn() {
     throw error;
   }
 }
+export {mssql};

@@ -1,0 +1,121 @@
+body{
+    background-color: #243B4A;
+}
+.divmedio {
+  width: 800px;
+  height: 150px;
+  background-color:#314c5b;
+  /* Bordes redondeados solo a la izquierda */
+  border-top-left-radius: 0px;
+  border-bottom-left-radius:0px;
+  /* Mantén el lado derecho sin redondear */
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  display: flex;             /* Activa Flexbox */
+  justify-content: center;    /* Centra horizontalmente */
+  align-items: center;        /* Centra verticalmente */
+  text-align: center; 
+  font-family: 'Cal Sans'; /* Fuente */
+  color: #b98afa;         /* Color */
+  font-size: 50px;  
+}
+.tabla {
+    background-color: #b98afa;
+    border-radius: 30px;
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    align-items: center; /* Asegura que los elementos estén centrados verticalmente */
+}
+ 
+.tabla h2{
+    font-family: 'Cal Sans'; /* Fuente */
+    color: #3e244a;         /* Color */
+    font-size: 40px;
+    margin: 5px;
+}
+.tabla h3{
+    font-family: 'Cal Sans'; /* Fuente */
+    color: #3e244a;         /* Color */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+}
+select {
+  background-color: #3e244a; /* Verde */
+  color: white; /* Texto blanco */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 500px;
+  height: 50px;
+  font-size: 18px; /* Agranda el texto */
+  padding: 10px; /* Espaciado interno */
+  font-family: 'Cal Sans'; /* Fuente */
+  font-size: 20px;
+  margin: 5px;
+  text-align: center; 
+  
+  
+}
+
+select:hover {
+  background-color: #243B4A; /* Verde más oscuro al pasar el cursor */
+}
+
+.imagen {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+#botones{
+    display: flex;
+    justify-content: center; /* Alinea el contenido a la derecha */
+    gap: 20px;
+}
+
+#boton1:hover {
+    background-color: #3e244a;
+    color: #b98afa;
+}
+a {
+  text-decoration: none;
+}
+
+#boton1 {
+    background-color: #87bcde;
+    color: #314c5b;
+    font-size: 30px;
+    font-family: 'Cal Sans';
+    border-radius: 30px;
+    cursor: pointer;
+    width: 300px; /* Tamaño fijo del botón */
+    margin: 40px;
+    border: 4px solid ; 
+    padding: 10px;
+    display: flex;
+    justify-content: center; /* Centra el texto del botón */
+}
+#boton2:hover {
+    background-color: #3e244a;
+    color: #b98afa;
+}
+#boton2 {
+    background-color: #87bcde;
+    color: #314c5b;
+    font-size: 30px;
+    font-family: 'Cal Sans';
+    border-radius: 30px;
+    cursor: pointer;
+    width: 300px; /* Tamaño fijo del botón */
+    margin: 40px;
+    border: 4px solid ; 
+    padding: 10px;
+    display: flex;
+    justify-content: center; /* Centra el texto del botón */
+}

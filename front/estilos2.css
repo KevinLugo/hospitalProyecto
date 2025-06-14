@@ -1,0 +1,69 @@
+body{
+    background-color: #243B4A;
+}
+.divmedio {
+  width: 800px;
+  height: 150px;
+  background-color:#314c5b;
+  /* Bordes redondeados solo a la izquierda */
+  border-top-left-radius: 0px;
+  border-bottom-left-radius:0px;
+  /* Mantén el lado derecho sin redondear */
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  display: flex;              /* Activa Flexbox */
+  justify-content: center;    /* Centra horizontalmente */
+  align-items: center;        /* Centra verticalmente */
+  text-align: center; 
+  font-family: 'Cal Sans'; /* Fuente */
+  color: #a0fa8a;         /* Color */
+  font-size: 50px;  
+}
+#tabla {
+    background-color:  #a0fa8a;
+    border-radius: 30px;
+    padding-right: 100px;
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en columna (uno debajo del otro) */                  /* Convierte el div en contenedor Flex */
+    align-items: center;
+    justify-content:center;       /* Alinea verticalmente si es necesario */
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+}
+#tabla h3{
+    font-family: 'Cal Sans'; /* Fuente */
+    color: #264a24;         /* Color */
+    font-size: 40px;
+    margin: 5px; 
+}
+#tabla p{
+    font-family: 'Cal Sans'; /* Fuente */
+    color: #4E4D5C;         /* Color */
+    font-size: 30px;
+    margin: 5px 
+}
+#boton2:hover {
+    background-color: #264a24;
+    color: #a0fa8a
+}
+a {
+  text-decoration: none;
+}
+
+#boton2 {
+    background-color: #87bcde;
+    color: #314c5b;
+    font-size: 30px;
+    font-family: 'Cal Sans';
+    border-radius: 30px;
+    cursor: pointer;
+    width: 300px; /* Tamaño fijo del botón */
+    margin: 40px;
+    border: 4px solid ; 
+    padding: 10px;
+    display: flex;
+    justify-content: center; /* Centra el texto del botón */
+     /* Asegura que esté bien alineado */
+     /* Centra el botón dentro de su contenedor */
+}

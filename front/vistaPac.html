@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Paciente</title>
+  <link rel="stylesheet" href="estilo1.css">
+  <link rel="icon" href="IMAGENES/ubicacion.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="perron">
+    <div id="izquierda">
+      <h1>CLINICA "DOLORES"</h1>
+    </div>
+    <div id="derecha">
+      <img src="IMAGENES/ubicacion.png" alt="Imagen girando" class="imagen">
+      <div class="derecha1">
+        <p><span class="texto1" id="usuarioT"></span></p>
+      </div>
+      <div class="derecha1">
+        <a href="notifPac.html">
+          <button id="boton1">Notificaciones</button>
+        </a>
+        <button id="boton2">Salir de sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <div id="Bienvenido">
+    <h3>Bienvenid@ <span id="nombre"></span> </h3>
+    <img src="IMAGENES/usuario.png" class="imagen2">
+  </div>
+
+  <div id="info">
+    <div id="izq_info">
+      <h4 class="subT">DATOS PERSONALES DEL PACIENTE</h4>
+      <p><strong>Nombre:</strong> <span id="nombreF"></span>
+        <span id="apellidoP"></span>
+        <span id="apellidoM"></span>
+      </p>
+      <p><strong>Edad:</strong> <span id="edad_persona"></span></p>
+      <p><strong>Correo:</strong> <span id="correo"></span></p>
+      <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
+      <p><strong>Tipo de Seguro:</strong> <span id="TSeguro"></span></p>
+      <p><strong>Estatura:</strong> <span id="Estatura"></span></p>
+    </div>
+    <div id="der_info">
+      <h4 class="subT">OPERACIONES DISPONIBLES</h4>
+      <a href="genCita.html">
+        <button id="boton3">Hacer un cita</button>
+      </a>
+      <a href="pagoPro.html">
+        <button id="boton3">Ver historial de citas</button>
+      </a>
+
+      <a href="histoMed.html">
+        <button id="boton3">Ver historial medico</button>
+      </a>
+      <a href="CITAACTUAL.html">
+        <button id="boton3">Cita actual</button>
+      </a>
+      <a href="pago.html">
+        <button id="boton3">Comprobante de pago</button>
+      </a>
+
+    </div>
+
+  </div>
+  <br><br>
+  <div class="perron2">
+
+    <div class="mapa">
+      <h3>MAPA</h3>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.9935396934375!2d-74.00597248460864!3d40.712775979331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316d7a8e5f%3A0xf1915691dbb7cc0!2sNew%20York%20City!5e0!3m2!1ses!2smx!4v1697895793645!5m2!1ses!2smx"
+        width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+        title="Ubicación de la Clínica"></iframe>
+    </div>
+
+
+    <div class="contactos">
+      <h3>Contactos de la Clínica</h3>
+      <p><strong>Dirección:</strong> Calle Falsa 123, Ciudad</p>
+      <p><strong>Teléfono:</strong> +52 5551234567</p>
+      <p><strong>Email:</strong> info@clinicadolores.com</p>
+    </div>
+  </div>
+  <script src="vistaPac.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+     <meta charset="UTF-8">
+    <title>Historial medico</title>
+    <link rel="stylesheet" href="estilos2.css">
+    <link rel="icon" href="IMAGENES/ubicacion.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <br><br>
+    <div class="divmedio">
+        <h2>HISTORIAL MEDICO</h2>
+    </div>
+    <br><br>
+    <div id="tabla">
+        <h3>Enfermedades Cronicas</h3>
+        <p><span id="Ecronica"></span></p>
+        <h3>Vacunas</h3>
+        <p><span id="Vacuna"></span></p>
+        <h3>Antecedentes Familiares</h3>
+        <p><span id="AnteFam"></span></p>
+        <h3>Alergias Carbronas</h3>
+        <p><span id="Alergias"></span></p>
+        <h3>Tipo de sangre</h3>
+        <p><span id="TipSangre"></span></p>
+    </div>
+<div>
+   <a href="vistaPac.html">
+  <button id="boton2">Regresar</button>
+    </a>
+</div>
+ 
+    <script>
+      let datos = {
+          "Ecronica": "Pendecitis aguda",
+          "Vacuna": "Hepatitis,Sarampeon,Tetanos",
+          "AnteFam": "Diabetes tipo B",
+          "Alergias": "Amoxicilina con Acido Clavulanico",
+          "TipSangre": "Tipo O+",
+      };
+      document.getElementById("Ecronica").innerText = datos.Ecronica;
+      document.getElementById("Vacuna").innerText = datos.Vacuna;
+      document.getElementById("AnteFam").innerText = datos.AnteFam;
+      document.getElementById("Alergias").innerText = datos.Alergias;
+      document.getElementById("TipSangre").innerText = datos.TipSangre;
+    </script>    
+</body>
+</html>

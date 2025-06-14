@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Formulario CitaS</title>
+    <link rel="stylesheet" href="estilo3.css">
+    <link rel="icon" href="IMAGENES/ubicacion.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+</head>
+<br><br>
+<body>
+ <div class="divmedio">
+    <h3>Formulario para una Cita</h3>
+    <img src="IMAGENES/ubicacion.png" alt="logo">
+</div>
+<br><br>
+<div class="tabla">
+    <h2>Visualizar Especialidades</h2>
+    <img src="IMAGENES/especialidad.png" alt="especialidad" class="imagen">
+    <select name="esp" id="esp">
+        <option value="nada" selected>Elige una opción...</option>
+            <option value="Medicina general">Medicina general</option>
+            <option value="cardiologia">Cardiologia</option>
+            <option value="dermatologia">Dermatologia</option>
+            <option value="ginecologia">Ginecologia</option>
+            <option value="nefrologia">Nefrologia</option>
+            <option value="nutriologia">Nutriologia</option>
+            <option value="oftalmologia">Oftalmologia</option>
+            <option value="oncologia">Oncologia</option>
+            <option value="ortopedia">Ortopedia</option>
+            <option value="pediatra">Pediatra</option>
+    </select>
+</div>
+<br><br>
+<div class="tabla">
+    <h2>Visualizar Doctores Disponibles</h2>
+    <img src="IMAGENES/doctores.png" alt="doc" class="imagen">
+    <select name="doc" id="doc">
+        <option value="">Opciones:</option>
+        <option value="opcion2">Opción 2</option>
+        <option value="opcion3">Opción 3</option>
+    </select>
+</div>
+    <br><br>
+<div class="tabla">
+    <h2>Visualizar Horarios Disponibles</h2>
+    <!-- <img src="IMAGENES/horario.png" alt="HORARIO" class="imagen"> -->
+    <h2>Mes:</h2>
+    <select name="mes" id="mes">
+        <option value="">Opciones:</option>
+        <option value="opcion2">Opción 2</option>
+        <option value="opcion3">Opción 3</option>
+    </select>
+    <h2>Dia:</h2>
+    <select name="dia" id="dia">
+        <option value="">Opciones:</option>
+        <option value="opcion2">Opción 2</option>
+        <option value="opcion3">Opción 3</option>
+    </select>
+    <h2>Hora:</h2>
+    <select name="hora" id="hora">
+        <option value="">Opciones:</option>
+        <option value="opcion2">Opción 2</option>
+        <option value="opcion3">Opción 3</option>
+    </select>
+</div>
+<br><br>
+<div class="tabla">
+    <h3>Precio de la consulta: $1,500.00</h2>
+</div>
+<br><br>
+<div id="botones">
+    <a href="vistaPac.html">
+  <button id="boton1">Regresar</button>
+    </a>
+    <a>
+        <button id="boton2">Finalizar</button>
+    </a>
+</div>
+<script src="genCita.js"></script>
+</body>
+</html>
