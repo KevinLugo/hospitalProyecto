@@ -13,41 +13,67 @@
         <input type="button" id="boton1" value="Volver" class="button-continue">
       </div>
     <form>
+        <label for="RFC">RFC</label>
+            <input type="text" id="rfc" placeholder="Escriba su RFC" name="rfc" maxlength="13" style="text-transform: uppercase;">
 
-    <label for="RFC">RFC</label>
-        <input type="text" id="rfc" placeholder="Escriba su RFC" name="rfc">
+        <label for="usuario">Usuario</label>
+            <input type="text" id="user" placeholder="Escriba el nombre de usuario" name="user" maxlength="20">
 
-    <label for="usuario">Usuario</label>
-        <input type="text" id="user" placeholder="Escriba el nombre de usuario" name="user">
+        <label for="contra">Contarseña</label>
+            <input type="text" id="psw" placeholder="Escriba su contarseña" name="psw" maxlength="20">
 
-    <label for="contra">Contarseña</label>
-        <input type="password" id="psw" placeholder="Escriba su contarseña" name="psw">
+        <label for="nombre">Nombre</label>
+            <input type="text" id="nom" placeholder="Escriba su nombre" name="nom" maxlength="20">
 
-    <label for="nombre">Nombre</label>
-        <input type="text" id="nom" placeholder="Escriba su nombre" name="nom">
+        <label for="APP">Apellido paterno</label>
+            <input type="text" id="apPat" placeholder="Escriba su apellido paterno" name="apPat" maxlength="20">
 
-    <label for="APP">Apellido paterno</label>
-        <input type="text" id="apPat" placeholder="Escriba su apellido paterno" name="apPat">
+        <label for="APM">Apellido materno</label>
+            <input type="text" id="apMat" placeholder="Escriba su apellido materno" name="apMat" maxlength="20">
 
-    <label for="APM">Apellido materno</label>
-        <input type="text" id="apMat" placeholder="Escriba su apellido materno" name="apMat">
+        <label for="nacimiento">Fecha de nacimiento</label>
+            <input type="date" id="fechaNac" name="fechaNac" min="1900-01-01">
 
-    <label for="nacimiento">Fecha de nacimiento</label>
-        <input type="date" id="fechaNac" name="fechaNac" min="1900-01-01">
+        <label for="telef">Telefono</label>
+            <input type="text" id="tel" placeholder="Escriba su telefono" name="tel" maxlength="10">
 
-    <label for="telef">Telefono</label>
-        <input type="text" id="tel" placeholder="Escriba su telefono" name="telef">
+        <label for="co">Correo</label>
+            <input type="text" id="correo" placeholder="Escriba su correo" name="correo" maxlength="50">
 
-    <label for="co">Correo</label>
-        <input type="text" id="correo" placeholder="Escriba su correo" name="co">
+        <label for="salario">Salario: $8,500</label>
 
-    <label for="salario">Salario</label>
-        <label for="salario2">Su salario es de: imaginense k ago kalkulos pa saber cuanto baganar</label>
+        <label for="horarioTurno">Turno</label>        
+        <select name="turno" id="turno">
+            <option value="" selected>Elige una opción...</option>
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+        </select>
+        <form>
+        <p><strong>Horas que va a trabajar:</strong> <span id="mensajeTurno"></span></p>
+        </form>
 
-    <div class="button-group">
-        <button type="submit" class="button-save" id="boton2">Guardar</button>
+        <form>
+            <label for="diasChanba">Dias que va a trabajar</label>
+            <label>
+            <input type="checkbox" name="dias" value="Lunes">Lunes</label>
+            <label>
+            <input type="checkbox" name="dias" value="Martes">Martes</label>
+            <label>
+            <input type="checkbox" name="dias" value="Miercoles">Miercoles</label>
+            <label>
+            <input type="checkbox" name="dias" value="Jueves">Jueves</label>
+            <label>
+            <input type="checkbox" name="dias" value="Viernes">Viernes</label>
+            <label>
+            <input type="checkbox" name="dias" value="Sabado">Sabado</label>
+            <label>
+            <input type="checkbox" name="dias" value="Domingo">Domingo</label>     
+        </form>
+
+        <div class="button-group">
+            <button type="button" class="button-save" id="boton2">Guardar</button>
     </form>
-<script src="regPac.js"></script>
+<script src="regRec.js"></script>
 </div>
 </body>
 </script>

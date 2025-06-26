@@ -1,48 +1,45 @@
 <!DOCTYPE html>
-<head>
-     <meta charset="UTF-8">
-    <title>Historial medico</title>
-    <link rel="stylesheet" href="estilos2.css">
-    <link rel="icon" href="IMAGENES/ubicacion.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+<html lang="es">
+<head> 
+  <meta charset="UTF-8">
+  <title>Historial Médico</title>
+  <link rel="stylesheet" href="estilo3.css">
 </head>
 <body>
-    <br><br>
-    <div class="divmedio">
-        <h2>HISTORIAL MEDICO</h2>
+  <div class="contenedor">
+    <h2>Historial Médico del Paciente</h2>
+
+    <div class="campo">
+      <h4>Enfermedades Crónicas</h4>
+      <p><span id="Ecronica"></span></p>
     </div>
-    <br><br>
-    <div id="tabla">
-        <h3>Enfermedades Cronicas</h3>
-        <p><span id="Ecronica"></span></p>
-        <h3>Vacunas</h3>
-        <p><span id="Vacuna"></span></p>
-        <h3>Antecedentes Familiares</h3>
-        <p><span id="AnteFam"></span></p>
-        <h3>Alergias Carbronas</h3>
-        <p><span id="Alergias"></span></p>
-        <h3>Tipo de sangre</h3>
-        <p><span id="TipSangre"></span></p>
+
+    <div class="campo">
+      <h4>Vacunas</h4>
+      <p><span id="Vacuna"></span></p>
     </div>
-<div>
-   <a href="vistaPac.html">
-  <button id="boton2">Regresar</button>
-    </a>
-</div>
- 
-    <script>
-      let datos = {
-          "Ecronica": "Pendecitis aguda",
-          "Vacuna": "Hepatitis,Sarampeon,Tetanos",
-          "AnteFam": "Diabetes tipo B",
-          "Alergias": "Amoxicilina con Acido Clavulanico",
-          "TipSangre": "Tipo O+",
-      };
-      document.getElementById("Ecronica").innerText = datos.Ecronica;
-      document.getElementById("Vacuna").innerText = datos.Vacuna;
-      document.getElementById("AnteFam").innerText = datos.AnteFam;
-      document.getElementById("Alergias").innerText = datos.Alergias;
-      document.getElementById("TipSangre").innerText = datos.TipSangre;
-    </script>    
+
+    <div class="campo">
+      <h4>Antecedentes Familiares</h4>
+      <p><span id="AnteFam"></span></p>
+    </div>
+
+    <div class="campo">
+      <h4>Alergias Comprobadas</h4>
+      <p><span id="Alergias"></span></p>
+    </div>
+
+    <div class="campo">
+      <h4>Tipo de Sangre</h4>
+      <p><span id="TipSangre"></span></p>
+    </div>
+
+    <div class="acciones">
+      <a href="vistaPac.html">
+        <button>Regresar</button>
+      </a>
+    </div>
+  </div>
+<script src="histoMed.js"></script>
 </body>
 </html>

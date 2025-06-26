@@ -1,80 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>COMPROBANTE</title>
-    <link rel="stylesheet" href="estilo6.css">
-    <link rel="icon" href="IMAGENES/ubicacion.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet"> 
-
+  <meta charset="UTF-8">
+  <title>Comprobante de Pago</title>
+  <link rel="stylesheet" href="estilo4.css" />
 </head>
 <body>
-    <br><br>
-    <div class="lol">
-        <div class="divmedio">
-            <h3>COMPROBANTE</h3>
-        </div>
-        <a href="vistaPac.html">
-            <button id="boton">Regresar</button>
-        </a>
+  <div class="contenedor">
+    <h2>Comprobante de Pago</h2>
+
+    <div class="campo">
+      <label>Estatus pago:</label>
+      <p><span id="estatus">nose</span></p>
     </div>
-    
-    <br><br>
-    <div class="tablota">
-        <div id="tit">
-            <h2 >RECIBO</h2>
-            <div class="tablita2">
-                <h3>Estatus de pago</h3>
-                <p>pendiente</p>
-            </div>
-        </div>
-        <br>
-        <div class="tablita">
-            <div class="tablitita">
-                <h3>Especialidad:</h3>
-                <p>PENDIENTE</p>
-            </div>
-            <div class="tablitita">
-                <h3>Doctor:</h3>
-                <p>PENDIENTE</p>
-            </div>
-            <div class="tablitita">
-                <h3>Horario:</h3>
-                <p>PENDIENTE</p>
-            </div>
-        </div>
-        <br>
-        <div class="tablita3">
-            <h3>PRECIO</h3>
-                <p>$1500</p>
-        </div>
-        <br>
-        <div class="lol">
-           <div class="tablita5">
-            <h3>FORMA DE PAGO</h3>
-            </div>
-                 <a href="">
-              <button id="boton3">DEBITO</button>
-            </a>
-            <a href="">
-              <button id="boton3">CREDITO</button>
-            </a>
-             
-        </div>
-        
-        <br>
-        <div class="tablita4">
-            <h3>Limite de pago</h3>
-            <p> pa mañana papito</p>
-        </div>
-        <br>
-        <div class="lol">
-            <a href="">
-                <button id="boton3">PAGAR</button>
-            </a>
-        </div>
-        
-        <br>
+
+
+    <div class="campo">
+      <label>Especialidad:</label>
+      <p><span id="especialidad">Cardiología</span></p>
     </div>
+
+    <div class="campo">
+      <label>Doctor:</label>
+      <p><span id="doctor">Dr. Juan Ramírez</span></p>
+    </div>
+
+    <div class="campo">
+      <label>Fecha de la cita:</label>
+      <p><span id="fechaCita">mañana</span></p>
+    </div>
+
+    <div class="campo">
+      <label>Horario:</label>
+      <p><span id="horaCita">aorita</span></p>
+    </div>
+
+    <div class="campo">
+      <label>Precio:</label>
+      <p><span id="precio">$1,500.00 MXN</span></p>
+    </div>
+
+    <div class="campo">
+      <label for="formaPago">Forma de Pago:</label>
+      <select id="formaPago">
+        <option value="">Elija una opción...</option>
+        <option value="debito">Débito</option>
+        <option value="credito">Crédito</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label>Límite para realizar el pago:</label>
+      <p><span id="limitePago">28/06/2025</span></p>
+    </div>
+
+    <div class="acciones">
+      <button id="btnPagar">Pagar</button>
+    </div>
+  </div>
+
+  <div class="acciones">
+  <a href="vistaPac.html">
+    <button>Regresar</button>
+  </a>
+</div>
+<script src="pago.js"></script>
 </body>
 </html>

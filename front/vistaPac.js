@@ -23,6 +23,9 @@ try {
     correo: datosPac.correo,
     edad: datosPac.edad,
     telefono: datosPac.tel,
+    curp: datosPac.curp,
+    nomUser: datosPac.nomUser,
+    contra: datosPac.contra,
     usuarioT: "PACIENTE",
   };
   document.getElementById("TSeguro").innerText = datos.TSeguro;
@@ -30,17 +33,14 @@ try {
   document.getElementById("edad_persona").innerText = datos.edad;
   document.getElementById("correo").innerText = datos.correo;
   document.getElementById("telefono").innerText = datos.telefono;
-  document.getElementById("usuarioT").innerText = datos.usuarioT;
-  document.getElementById("nombre").innerText = datos.nombre;
   document.getElementById("nombreF").innerText = datos.nombre;
   document.getElementById("apellidoM").innerText = datos.apellidoM;
   document.getElementById("apellidoP").innerText = datos.apellidoP;
+  document.getElementById("curp").innerText = datos.curp;
+  document.getElementById("user").innerText = datos.nomUser;
+  document.getElementById("psw").innerText = datos.contra;
 } catch (err) {
   console.error("Error en la solicitud:", err);
   alert("Error al consultar los datos del pac.");
 }
 })();
-
-document.getElementById("boton2").addEventListener("click", function () {
-  window.location.href = "login.html"; // Redirige a otra página
-});

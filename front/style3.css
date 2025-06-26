@@ -62,3 +62,22 @@ button {
 .btnCancelar {
   background-color: #dc3545;
 }
+
+.boton-enlace {
+  display: inline-block;
+  width: 20%;
+  background-color: #0288d1;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top:40px;
+  transition: background-color 0.3s;
+}
+
+.boton-enlace:hover {
+  background-color: #01579b;
+}

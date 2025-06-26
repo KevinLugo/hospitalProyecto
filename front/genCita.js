@@ -295,6 +295,8 @@ document.getElementById("boton2").addEventListener("click", async () => {
   const horaCita = document.getElementById("hora").value;
   const cedula = document.getElementById("doc").value;
   const año = new Date().getFullYear();
+
+  const esp=document.getElementById("esp").value;
   
   if (!dia || !mes || !horaCita || !cedula) {
     alert("Faltan datos por seleccionar.");
@@ -385,10 +387,11 @@ console.log("Pago registrado");
         fechaR: fechaCita,
         statCita,
         horaCita,
+        esp
       }),
     });
     alert("¡Cita registrada con éxito!");
-    window.location.href = "pagoPro.html";
+    window.location.href = "pago.html";
   } catch (err) {
     console.error("Error al registrar la cita:", err);
     alert("No se pudo registrar la cita.");

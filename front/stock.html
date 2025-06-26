@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stock de Medicamentos</title>
+  <link rel="stylesheet" href="estilo4.css" />
+</head>
+<body>
+  <div class="contenedor">
+    <a href="vistaRec.html"><input type="button" class="boton-enlace" id="boton1" value="Regresar"></a>
+    <h2>Stock de Medicamentos</h2>
+    <div class="campo">
+      <label for="busqueda">Buscar por nombre:</label>
+      <input type="text" id="busqueda" placeholder="Nombre del medicamento..." />
+      <button id="btnBuscar">Buscar</button>
+    </div>
+
+    <table id="tablaMed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Fecha de Caducidad</th>
+          <th>Stock</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="stock.js"></script>
+</body>
+</html>

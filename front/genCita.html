@@ -1,82 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>Formulario CitaS</title>
-    <link rel="stylesheet" href="estilo3.css">
-    <link rel="icon" href="IMAGENES/ubicacion.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear Cita</title>
+  <link rel="stylesheet" href="estilo2.css" />
 </head>
-<br><br>
 <body>
- <div class="divmedio">
-    <h3>Formulario para una Cita</h3>
-    <img src="IMAGENES/ubicacion.png" alt="logo">
+  <div class="contenedor">
+    <h2>Crear Cita Médica</h2>
+
+    <div class="campo">
+  <h2>Visualizar Especialidades</h2>
+  <select name="esp" id="esp">
+    <option value="nada" selected>Elige una opción...</option>
+    <option value="Medicina general">Medicina general</option>
+    <option value="Cardiologia">Cardiología</option>
+    <option value="Dermatologia">Dermatología</option>
+    <option value="Ginecologia">Ginecología</option>
+    <option value="Nefrologia">Nefrología</option>
+    <option value="Nutriologia">Nutriología</option>
+    <option value="Oftalmologia">Oftalmología</option>
+    <option value="Oncologia">Oncología</option>
+    <option value="Ortopedia">Ortopedia</option>
+    <option value="Pediatra">Pediatría</option>
+  </select>
 </div>
-<br><br>
-<div class="tabla">
-    <h2>Visualizar Especialidades</h2>
-    <img src="IMAGENES/especialidad.png" alt="especialidad" class="imagen">
-    <select name="esp" id="esp">
-        <option value="nada" selected>Elige una opción...</option>
-            <option value="Medicina general">Medicina general</option>
-            <option value="cardiologia">Cardiologia</option>
-            <option value="dermatologia">Dermatologia</option>
-            <option value="ginecologia">Ginecologia</option>
-            <option value="nefrologia">Nefrologia</option>
-            <option value="nutriologia">Nutriologia</option>
-            <option value="oftalmologia">Oftalmologia</option>
-            <option value="oncologia">Oncologia</option>
-            <option value="ortopedia">Ortopedia</option>
-            <option value="pediatra">Pediatra</option>
-    </select>
+
+<div class="campo">
+  <h2>Visualizar Doctores Disponibles</h2>
+  <select name="doc" id="doc">
+    <option value="">Opciones:</option>
+    <option value="opcion2">Opción 2</option>
+    <option value="opcion3">Opción 3</option>
+  </select>
 </div>
-<br><br>
-<div class="tabla">
-    <h2>Visualizar Doctores Disponibles</h2>
-    <img src="IMAGENES/doctores.png" alt="doc" class="imagen">
-    <select name="doc" id="doc">
-        <option value="">Opciones:</option>
-        <option value="opcion2">Opción 2</option>
-        <option value="opcion3">Opción 3</option>
-    </select>
-</div>
-    <br><br>
-<div class="tabla">
-    <h2>Visualizar Horarios Disponibles</h2>
-    <!-- <img src="IMAGENES/horario.png" alt="HORARIO" class="imagen"> -->
-    <h2>Mes:</h2>
-    <select name="mes" id="mes">
-        <option value="">Opciones:</option>
-        <option value="opcion2">Opción 2</option>
-        <option value="opcion3">Opción 3</option>
-    </select>
-    <h2>Dia:</h2>
-    <select name="dia" id="dia">
-        <option value="">Opciones:</option>
-        <option value="opcion2">Opción 2</option>
-        <option value="opcion3">Opción 3</option>
-    </select>
-    <h2>Hora:</h2>
-    <select name="hora" id="hora">
-        <option value="">Opciones:</option>
-        <option value="opcion2">Opción 2</option>
-        <option value="opcion3">Opción 3</option>
-    </select>
-</div>
-<br><br>
-<div class="tabla">
-    <h3>Precio de la consulta: $1,500.00</h2>
-</div>
-<br><br>
-<div id="botones">
-    <a href="vistaPac.html">
-  <button id="boton1">Regresar</button>
-    </a>
-    <a>
-        <button id="boton2">Finalizar</button>
-    </a>
-</div>
-<script src="genCita.js"></script>
+
+
+      <h2>Visualizar Horarios Disponibles</h2>
+
+<h2>Mes:</h2>
+<select name="mes" id="mes">
+  <option value="">Selecciona un mes</option>
+  <option value="enero">Enero</option>
+  <option value="febrero">Febrero</option>
+  <option value="marzo">Marzo</option>
+  <!-- Puedes continuar hasta diciembre -->
+</select>
+
+<h2>Día:</h2>
+<select name="dia" id="dia">
+  <option value="">Selecciona un día</option>
+  <!-- Puedes generar dinámicamente los días del 1 al 31 o limitar según el mes seleccionado -->
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <!-- ... -->
+</select>
+
+<h2>Hora:</h2>
+<select name="hora" id="hora">
+  <option value="">Selecciona una hora</option>
+  <option value="08:00">08:00</option>
+  <option value="09:00">09:00</option>
+  <option value="10:00">10:00</option>
+  <!-- Puedes seguir agregando más horas según disponibilidad -->
+</select>
+
+    <div class="precio">
+      <h3>Precio de Consulta: <span id="precio">$1,500 MXN</span></h3>
+    </div>
+
+    <div class="acciones">
+      <button id="boton2" >Confirmar Cita</button>
+      <a href="vistaPac.html"><button id="boton1">Cancelar</button></a>
+    </div>
+
+  </div>
+  <script src="genCita.js"></script>
 </body>
 </html>

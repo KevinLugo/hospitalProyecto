@@ -112,3 +112,14 @@ body {
 input::placeholder {
   text-transform: none; /* Evita que el placeholder se vuelva mayúsculas */
 }
+form textarea {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical; /* Permite redimensionar solo verticalmente */
+  background-color: white;
+  color: #333;
+}
