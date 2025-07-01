@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo1.css" />
+    <title>Citas atender</title>
+</head>
+<body>
+    <div id="info">
+  <div id="izq_info">
+      <h4 class="subT">DATOS PERSONALES DEL PACIENTE</h4>
+      <p><strong>Nombre:</strong> <span id="nombreF"></span>
+        <span id="apellidoP"></span>
+        <span id="apellidoM"></span>
+      </p>
+      <p><strong>Edad:</strong> <span id="edad_persona"></span></p>
+      <p><strong>Tipo de Seguro:</strong> <span id="TSeguro"></span></p>
+      <p><strong>Estatura:</strong> <span id="Estatura"></span></p>
+      <p><strong>Tipo de sangre:</strong> <span id="tipoSangre"></span></p>
+      <p><strong>Enfermedades cronicas:</strong> <span id="enfCron"></span></p>
+      <p><strong>Vacunas:</strong> <span id="vac"></span></p>
+      <p><strong>Alergias:</strong> <span id="ale"></span></p>
+      <p><strong>Antecedentes familiares:</strong> <span id="anteFam"></span></p>
+    </div>
+     <h2>Receta</h2>
+  <button id="btnAgregarFila">Agregar fila</button>
+  <form id="formReceta">
+    <table id="tablaReceta">
+      <thead>
+        <tr>
+          <th>Diagnóstico</th>
+          <th>Medicamento</th>
+          <th>Dosis</th>
+          <th>Intervalo</th>
+          <th>Observaciones</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoTabla"></tbody>
+    </table>
+    <button type="submit">Guardar Receta</button>
+  </form>
+</div>
+<script src="atender.js"></script>
+</body>
+</html>

@@ -292,13 +292,13 @@ document.getElementById("boton2").addEventListener("click", async () => {
 
   const dia = document.getElementById("dia").value;
   const mes = document.getElementById("mes").value;
-  const horaCita = document.getElementById("hora").value;
+  let horaCita = document.getElementById("hora").value;
   const cedula = document.getElementById("doc").value;
   const año = new Date().getFullYear();
 
-  const esp=document.getElementById("esp").value;
+  let esp=document.getElementById("esp").value;
   
-  if (!dia || !mes || !horaCita || !cedula) {
+  if (!dia || !mes || !horaCita || !cedula || esp=="") {
     alert("Faltan datos por seleccionar.");
     return;
   }
@@ -387,11 +387,12 @@ console.log("Pago registrado");
         fechaR: fechaCita,
         statCita,
         horaCita,
-        esp
+        esp:esp
       }),
     });
     alert("¡Cita registrada con éxito!");
-    window.location.href = "pago.html";
+
+    window.location.href = "citas.html";
   } catch (err) {
     console.error("Error al registrar la cita:", err);
     alert("No se pudo registrar la cita.");

@@ -42,8 +42,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       const result = await res.json();
+    } catch (err) {
+      console.error("Error al registrar pago:", err);
+      alert("Ocurrió un error al procesar el pago.");
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/pagoCita", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idPago: parseInt(idPago) }),
+      });
+
+      const result = await res.json();
       alert(result.mensaje || "Pago registrado correctamente.");
-      window.location.href = "vistaPac.html";
+      window.location.href = "citas.html";
     } catch (err) {
       console.error("Error al registrar pago:", err);
       alert("Ocurrió un error al procesar el pago.");

@@ -199,14 +199,13 @@ document.addEventListener("click", (e) => {
     window.location.href = "pago.html";
   }
 });
+
 //fechaChida
 function soloFecha(fecha) {
-  return new Date(fecha).toLocaleDateString("es-MX", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric"
-  });
+  return fecha.split("T")[0].split("-").reverse().join("/");
 }
+
+
 
 //fechaChida2
 function fechaConHora(fecha) {

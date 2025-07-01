@@ -531,7 +531,7 @@ export const citas = async (idPac) => {
       .query('select p.idPago, c.idCita, c.statCita, c.fechaC, c.fechaR, c.horaCita, co.noCon, co.planta, u.nom,u.apPat,u.apMat, '+
         'p.statPago, p.monto, p.limPago, p.formaPago, c.esp from pago as p inner join cita as c on p.idPago=c.idPago inner '
         +'join doctor as d on c.cedula=d.cedula inner join empleado as e on e.idEmp=d.idEmp inner join usuario as u on u.idUser=e.idUser '
-        +'inner join asigCon as a on a.cedula=d.cedula inner join consul as co on co.idCon=a.idCon where c.idPac=@idPac');
+        +'inner join asigCon as a on a.cedula=d.cedula inner join consul as co on co.idCon=a.idCon where c.idPac=@idPac order by c.fechaC desc');
     return result.recordset;
   } catch (err) {
     console.error("Error al obtener las ciats del pacientye:", err);
@@ -563,6 +563,14 @@ export const formaPagos = async ({ idPago, formaPago }) => {
     .input('idPago', mssql.Int, idPago)
     .input('formaPago', mssql.VarChar, formaPago)
     .query(`update pago set formaPago=@formaPago, statPago='Pagado' where idPago=@idPago`);
+};
+
+//le ago update al pago
+export const pagoCita = async ({ idPago }) => {
+  const pool = await cn();
+  await pool.request()
+    .input('idPago', mssql.Int, idPago)
+    .query(`update cita set statCita='Pagada pendiente por atender' where idPago=@idPago`);
 };
 
 //le ago update ala cita el pasiente kanselo y se le aplika politka
@@ -608,7 +616,7 @@ export const elPac = async (curp) => {
         +'as hm on p.idPac=hm.idPac where p.curp=@curp');
     return result.recordset;
   } catch (err) {
-    console.error("Error en consulta vistaPac:", err);
+    console.error("Error en consulta elPac:", err);
     throw err;
   }
 };
@@ -625,7 +633,7 @@ export const laRecep = async (rfc) => {
         +"h.idEmp=e.idEmp inner join tipoEmp as te on te.idTipoEmp=e.idTipoEmp where te.tipoEmp='recepcionista' and rfc=@rfc");
     return result.recordset;
   } catch (err) {
-    console.error("Error en consulta vistaPac:", err);
+    console.error("Error en consulta laRecep:", err);
     throw err;
   }
 };
@@ -645,7 +653,7 @@ export const elDoc = async (rfc) => {
         +"u.nomUser,u.contra, e.salario, e.estatus, e.rfc, h.dias, h.horaEnt, h.horaSal, h.turno, d.cedula, c.noCon, c.planta");
     return result.recordset;
   } catch (err) {
-    console.error("Error en consulta vistaPac:", err);
+    console.error("Error en consulta elDoc:", err);
     throw err;
   }
 };
@@ -747,7 +755,7 @@ export const stock2 = async (nomMed) => {
     const result = await pool
       .request()
       .input('nomMed', mssql.VarChar, `%${nomMed}%`)
-      .query("select idMed, nomMed, feCad, stock, descMed, precioMed from med where nomMed LIKE '%'+@nomMed+'%'");
+      .query("select idMed, nomMed, feCad, stock, descMed, precioMed from med where nomMed like '%'+@nomMed+'%'");
     return result.recordset;
   } catch (err) {
     console.error("Error en consulta olaDoc:", err);
@@ -876,19 +884,179 @@ export const menMed = async ({ idMed, noMed }) => {
     .query("update med set stock = stock - @noMed where idMed = @idMed");
 };
 
-//mostramos todo lo de la recep
-export const datosRec = async (idUser) => {
+
+//mostramos todo lo del doc
+export const vistaDoc = async (idUser) => {
   try {
     const pool = await cn(); 
     const result = await pool
       .request()
       .input('idUser', mssql.Int, idUser)
       .query("select u.idUser, u.nom, u.apPat ,u.apMat, u.fechaNac, u.tel, u.correo, u.nomUser ,u.contra, e.salario, e.estatus, e.rfc, h.dias, "
-        +"h.horaEnt, h.horaSal, h.turno from usuario as u inner join empleado as e on u.idUser=e.idUser inner join horario as h on "
-        +"h.idEmp=e.idEmp inner join tipoEmp as te on te.idTipoEmp=e.idTipoEmp where u.idUser=@idUser");
+        +"h.horaEnt, h.horaSal, h.turno, d.cedula, string_agg(es.nomEsp,', ') as especialidades, c.noCon, c.planta from usuario as u inner "
+        +"join empleado as e on u.idUser=e.idUser inner join horario as h on h.idEmp=e.idEmp inner join doctor as d on e.idEmp=d.idEmp inner "
+        +"join docEsp as de on de.cedula=d.cedula inner join asigCon as a on a.cedula=d.cedula inner join consul as c on c.idCon=a.idCon inner "
+        +"join esp as es on es.idEsp=de.idEsp where u.idUser=@idUser group by u.idUser, u.nom, u.apPat ,u.apMat, u.fechaNac, u.tel, u.correo, "
+        +"u.nomUser,u.contra, e.salario, e.estatus, e.rfc, h.dias, h.horaEnt, h.horaSal, h.turno, d.cedula, c.noCon, c.planta");
     return result.recordset;
   } catch (err) {
-    console.error("Error en consulta datos de la recep:", err);
+    console.error("Error en consulta vistaDoc:", err);
+    throw err;
+  }
+};
+
+//mostramos todo lo del doc
+export const ced = async (idUser) => {
+  try {
+    const pool = await cn(); 
+    const result = await pool
+      .request()
+      .input('idUser', mssql.Int, idUser)
+      .query("select d.cedula from doctor as d inner join empleado as e on e.idEmp=d.idEmp inner join usuario as u on u.idUser=e.idUser "
+        +"where u.idUser=@idUser");
+    return result.recordset;
+  } catch (err) {
+    console.error("Error al obtener cedula doc:", err);
+    throw err;
+  }
+};
+
+//mostramos todo lo del doc
+export const citasPendientes = async (cedula) => {
+  try {
+    const pool = await cn(); 
+    const result = await pool
+      .request()
+      .input('cedula', mssql.Int, cedula)
+      .query("select c.idCita, u.nom, u.apPat, u.apMat, c.fechaC, c.fechaR, c.statCita, c.horaCita, c.esp from cita as c inner join paciente "
+        +"as p on p.idPac=c.idPac inner join usuario as u on u.idUser=p.idUser where c.cedula=@cedula and "
+        +"c.statCita='Pagada pendiente por atender'");
+    return result.recordset;
+  } catch (err) {
+    console.error("Error en citasDoc:", err);
+    throw err;
+  }
+};
+
+//ingresamos la informacion del paciente en la vista del paciente
+export const datosPaciente = async (idCita) => {
+  try {
+    const pool = await cn(); 
+    const result = await pool
+      .request()
+      .input('idCita', mssql.Int, idCita)
+      .query('select u.nom, u.apPat, u.apMat, p.tipoSeg, u.fechaNac, DATEDIFF(YEAR, u.fechaNac, GETDATE()) as edad, p.estatura, '
+        +'hm.tipoSangre, hm.alergias, hm.vacunas, hm.enferCron, hm.anteFam from usuario as u inner join paciente as p on '
+        +'u.idUser=p.idUser inner join histMed as hm on hm.idPac=p.idPac inner join cita as c on c.idPac=p.idPac where idCita=@idCita');
+    return result.recordset;
+  } catch (err) {
+    console.error("Error en consulta vistaPac:", err);
+    throw err;
+  }
+};
+
+//busca el id de receta y le zuma 1
+export async function getRecetaId() {
+  try {
+    const pool = await cn();
+    const result = await pool.request().query('select max(idRec) as ultimoId from receta');
+    const ultimoId=result.recordset[0].ultimoId || 0;
+    return ultimoId+1;
+  } catch (err) {
+    console.error("Error al obtener el ultimo id", err);
+    throw err;
+  }
+}
+
+//ingreso los datos de la receta
+export const regReceta = async ({ idRec, idCita, diag, med, dosis, intervalo, fechaRe, observ }) => {
+  const pool = await cn();
+  await pool.request()
+    .input('idRec', mssql.Int, idRec)
+    .input('idCita', mssql.Int, idCita)
+    .input('diag', mssql.VarChar, diag)
+    .input('med', mssql.VarChar, med)
+    .input('dosis', mssql.VarChar, dosis)
+    .input('intervalo', mssql.VarChar, intervalo)
+    .input('fechaRe', mssql.Date, fechaRe)
+    .input('observ', mssql.VarChar, observ)
+    .query(`insert into receta (idRec, idCita, diag, med, dosis, intervalo, fechaRe, observ)
+      values (@idRec, @idCita, @diag, @med, @dosis, @intervalo, @fechaRe, @observ)`);
+};
+
+//le ago update ala cita
+export const atendida = async ({ idCita }) => {
+  const pool = await cn();
+  await pool.request()
+    .input('idCita', mssql.Int, idCita)
+    .query(`update cita set statCita='Atendida' where idCita=@idCita`);
+};
+
+//ingresamos la informacion del paciente en la vista del paciente
+export const recetas = async (cedula) => {
+  try {
+    const pool = await cn(); 
+    const result = await pool
+      .request()
+      .input('cedula', mssql.Int, cedula)
+      .query("select u.nom, u.apPat, u.apMat, r.idRec, r.idCita, r.diag, r.med, r.dosis, r.intervalo, r.fechaRe, r.observ from receta "
+        +"as r inner join cita as c on c.idCita=r.idCita inner join paciente as p on p.idPac=c.idPac inner join usuario as u "
+        +"on u.idUser=p.idUser where c.cedula=@cedula");
+    return result.recordset;
+  } catch (err) {
+    console.error("Error en consulta recetas:", err);
+    throw err;
+  }
+};
+
+//ingresamos la informacion del paciente en la vista del paciente
+export const recetas2 = async (cedula, nombre) => {
+  try {
+    const pool = await cn(); 
+    const result = await pool
+      .request()
+      .input('nombre', mssql.VarChar, `%${nombre}%`)
+      .input('cedula', mssql.Int, cedula)
+      .query("select u.nom, u.apPat, u.apMat, r.idRec, r.idCita, r.diag, r.med, r.dosis, r.intervalo, r.fechaRe, r.observ from receta "
+        +"as r inner join cita as c on c.idCita=r.idCita inner join paciente as p on p.idPac=c.idPac inner join usuario as u on "
+        +"u.idUser=p.idUser where c.cedula=@cedula and u.nom like '%'+@nombre+'%' or u.apPat like '%'+@nombre+'%' or u.apMat like '%'+@nombre+'%'");
+    return result.recordset;
+  } catch (err) {
+    console.error("Error en consulta recetas2:", err);
+    throw err;
+  }
+};
+
+//ingresamos la informacion del paciente en la vista del paciente
+export const bitacora = async (cedula) => {
+  try {
+    const pool = await cn(); 
+    const result = await pool
+      .request()
+      .input('cedula', mssql.Int, cedula)
+      .query("select b.idBit, b.idCita, b.idRec, b.nomP, b.apPatP, b.apMatP, b.nomD, b.apPatD, b.apMatD, b.esp, b.fechaCita, b.horaCita, "
+        +"b.diag, b.med, b.dosis, b.intervalo, b.observ from bitacora as b where b.cedula=@cedula");
+    return result.recordset;
+  } catch (err) {
+    console.error("Error en consulta recetas:", err);
+    throw err;
+  }
+};
+
+//ingresamos la informacion del paciente en la vista del paciente
+export const bitacora2 = async (cedula, nombre) => {
+  try {
+    const pool = await cn(); 
+    const result = await pool
+      .request()
+      .input('nombre', mssql.VarChar, `%${nombre}%`)
+      .input('cedula', mssql.Int, cedula)
+      .query("select b.idBit, b.idCita, b.idRec, b.nomP, b.apPatP, b.apMatP, b.nomD, b.apPatD, b.apMatD, b.esp, b.fechaCita, b.horaCita, "
+        +"b.diag, b.med, b.dosis, b.intervalo, b.observ from bitacora as b where b.cedula=@cedula and b.nomP like '%'+@nombre+'%' or "
+        +"b.apPatP like '%'+@nombre+'%' or b.apMatP like '%'+@nombre+'%'");
+    return result.recordset;
+  } catch (err) {
+    console.error("Error en consulta recetas:", err);
     throw err;
   }
 };

@@ -43,6 +43,7 @@ import { regCita } from './consultas.js';
 import { noHora } from './consultas.js';
 import { citas } from './consultas.js';
 import { formaPagos } from './consultas.js';
+import { pagoCita } from './consultas.js';
 import { canCitaP } from './consultas.js';
 import { vistaRec } from './consultas.js';
 import { elPac } from './consultas.js';
@@ -65,8 +66,17 @@ import { regDT } from './consultas.js';
 import { getpagoTId } from './consultas.js';
 import { regPagoT } from './consultas.js';
 import { menMed } from './consultas.js';
-import { datosRec } from './consultas.js';
-
+import { vistaDoc } from './consultas.js';
+import { ced } from './consultas.js';
+import { citasPendientes } from './consultas.js';
+import { datosPaciente } from './consultas.js';
+import { getRecetaId} from './consultas.js';
+import { regReceta} from './consultas.js';
+import { atendida } from './consultas.js';
+import { recetas } from './consultas.js';
+import { recetas2 } from './consultas.js';
+import { bitacora } from './consultas.js';
+import { bitacora2 } from './consultas.js';
 
 //configurasion del espres
 const app = express();
@@ -547,8 +557,8 @@ app.post("/api/regCita", async (req, res) => {
     await regCita({ idCita, cedula, idPac, idPago, fechaC, fechaR, statCita, horaCita, esp });
     res.json({ mensaje: "Cita registrada correctamente" });
   } catch (err) {
-    console.error("Error al registrar cita:", err);
-    res.status(500).json({ mensaje: "Error en el servidor en regCita" });
+    console.error("Error al registrar cita:", err); // <-- MUY IMPORTANTE
+    res.status(500).json({ mensaje: "Error en el servidor en regCita", error: err.message });
   }
 });
 
@@ -584,6 +594,18 @@ app.post('/api/formaPago', async (req, res) => {
   } catch (error) {
     console.error("Error al actualizar la forma de pago:", error);
     res.status(500).json({ error: "Error al actualizar la forma de pago" });
+  }
+});
+
+//api para aktualisar el pago
+app.post('/api/pagoCita', async (req, res) => {
+  try {
+    const { idPago } = req.body;
+    await pagoCita({ idPago }); 
+    res.json({ mensaje: 'Forma de pago actualizada correctamente' });
+  } catch (error) {
+    console.error("Error al actualizar la forma de pago en cita:", error);
+    res.status(500).json({ error: "Error al actualizar la forma de pago en cita" });
   }
 });
 
@@ -834,14 +856,125 @@ app.post('/api/menosMed', async (req, res) => {
   }
 });
 
-//busca los datos de la recep para darselos api
-app.post("/api/datosRec", async (req, res) => {
+//busca los datos del doc para darselos api
+app.post("/api/datosDoc", async (req, res) => {
   const { idUser } = req.body;
   try {
-    const resul = await vistaRec(idUser);
+    const resul = await vistaDoc(idUser);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos del doc" });
+  }
+});
+
+//busca los datos del doc para darselos api
+app.post("/api/cedula", async (req, res) => {
+  const { idUser } = req.body;
+  try {
+    const resul = await ced(idUser);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener la cedula del doc" });
+  }
+});
+
+//busca las citas del doc
+app.post("/api/citasDoc", async (req, res) => {
+  const { cedula } = req.body;
+  try {
+    const resul = await citasPendientes(cedula);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener las citas del doc" });
+  }
+});
+
+//datos paciente cita
+app.post("/api/datosPaciente", async (req, res) => {
+  const { idCita } = req.body;
+  try {
+    const resul = await datosPaciente(idCita);
     res.json(resul[0]); 
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener los datos de la recepcionista" });
+    res.status(500).json({ error: "Error al obtener los datos del paciente de la cita" });
+  }
+});
+
+//creo el endpoint para buscar receta y sumarle 1
+app.get("/api/sigRecetaId", async (req, res) => {
+  try {
+    const sigRecetaId = await getRecetaId();
+    res.json({ sigRecetaId });
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener la sigueinte id receta" });
+  }
+});
+
+//registrar la receta aki
+app.post("/api/regReceta", async (req, res) => {
+  try {
+    const { idRec, idCita, diag, med, dosis, intervalo, fechaRe, observ } = req.body;
+    await regReceta({ idRec, idCita, diag, med, dosis, intervalo, fechaRe, observ });
+    res.json({ mensaje: "Receta registrada correctamente" });
+  } catch (err) {
+    console.error("Error al registrar receta:", err);
+    res.status(500).json({ mensaje: "Error en el servidor en regReceta" });
+  }
+});
+
+//api para aktualisar el pago
+app.post('/api/atendida', async (req, res) => {
+  try {
+    const { idCita } = req.body;
+    await atendida({ idCita }); 
+    res.json({ mensaje: 'Cita atendida' });
+  } catch (error) {
+    console.error("Error al actualizar cita atendida:", error);
+    res.status(500).json({ error: "Error al actualizar cita atendida" });
+  }
+});
+
+//recetas creadas
+app.post("/api/recetas", async (req, res) => {
+  const { cedula } = req.body;
+  try {
+    const resul = await recetas(cedula);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos de las recetas" });
+  }
+});
+
+//recetas creadas
+app.post("/api/recetas2", async (req, res) => {
+  const { cedula, nombre } = req.body;
+  try {
+    const resul = await recetas2(cedula, nombre);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos de las recetas2" });
+  }
+});
+
+//recetas creadas
+app.post("/api/bitacora", async (req, res) => {
+  const { cedula } = req.body;
+  try {
+    const resul = await bitacora(cedula);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos de la bitacora" });
+  }
+});
+
+//recetas creadas
+app.post("/api/bitacora2", async (req, res) => {
+  const { cedula, nombre } = req.body;
+  try {
+    const resul = await bitacora2(cedula, nombre);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos de la bitacora2" });
   }
 });
 

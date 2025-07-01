@@ -4,7 +4,7 @@ import mssql from "mssql";
 const cnSet = {
   server: 'localhost',
   port: 1434,
-  database: 'prueba2',
+  database: 'consultorio',
   user: 'sa',
   password: '123',
   options: {

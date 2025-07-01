@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctor</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    input { margin: 10px; padding: 5px; width: 300px; }
+  </style>
+</head>
+<body>
+<a href="vistaDoc.html" class="card">Regresar</a>
+  <h2>Historial en Bitácora</h2>
+  <input type="text" id="buscador" placeholder="Buscar por nombre del paciente...">
+  <table id="tablaBitacora">
+    <thead>
+      <tr>
+        <th>Nombre Paciente</th>
+        <th>Nombre Doctor</th>
+        <th>Especialidad</th>
+        <th>Fecha Cita</th>
+        <th>Hora</th>
+        <th>Diagnóstico</th>
+        <th>Medicamento</th>
+        <th>Dosis</th>
+        <th>Intervalo</th>
+        <th>Observaciones</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script src="bitacora.js"></script>
+</body>
+</html>
