@@ -5,20 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetas</title>
     <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #eef6ff, #ffffff);
+      color: #2f502c;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    .search-section {
+      max-width: 500px;
+      margin: 0 auto 40px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-section input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    .search-section button {
+      background-color: #4ae24a;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-section button:hover {
+      background-color: #3cbd35;
+    }
+
+    .card-table {
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background-color: white;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
     }
+
     th, td {
-      border: 1px solid #aaa;
-      padding: 8px;
-      text-align: center;
+      text-align: left;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
     }
+
     th {
-      background-color: #f2f2f2;
+      background-color: #f2f6fc;
+      font-weight: 600;
+      color: #44773c;
     }
-    button {
-      padding: 5px 10px;
+
+    tr:hover {
+      background-color: #f9fbff;
+    }
+
+    .cancel-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+
+    .cancel-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
     }
   </style>
 </head>
