@@ -8,9 +8,9 @@ let errorDias2=false;
 const rfcSi = [
   //numeros
   ...Array.from({ length: 10 }, (_, i) => 48 + i),
-  // Mayúsculas
+  //mayusculas
   ...Array.from({ length: 26 }, (_, i) => 65 + i),
-  // Minúsculas
+  //minusculas
   ...Array.from({ length: 26 }, (_, i) => 97 + i),
   209,241
 ];
@@ -19,7 +19,7 @@ const rfcSi = [
 function valRfc(e) {
   const codigo = e.keyCode || e.which;
 
-  // Permitir Backspace, Tab, y flechas
+  //borrar, tab y flechas
   if ([8, 9, 37, 38, 39, 40].includes(codigo)) return;
 
   if (!rfcSi.includes(codigo)) {
@@ -32,10 +32,10 @@ function validA(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, números del 1 al 9, arroba, etc.
+  //caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ@0-9\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //asscii
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -48,10 +48,10 @@ function validB(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, ñ, números del 1 al 9, arroba, etc.
+  //otros caracteres
   const asies = /^[a-zA-ZñÑ@0-9]$/;
 
-  // También permitimos codigos ASCII específicos:
+  //otros ascii
   const codSi = [43, 45, 46, 95];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -64,10 +64,10 @@ function validC(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, etc.
+  //otros otros caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //otros ascii
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -79,10 +79,8 @@ function validC(e) {
 function validD(e) {
   const letra = e.key;
 
-  // permito puros numeros
+  //puro numero
   const asies = /^[0-9]$/;
-
-  // También permitimos códigos ASCII específicos:
   if (!asies.test(letra)) {
     e.preventDefault();
   }
@@ -100,7 +98,7 @@ document.getElementById("tel").addEventListener("keypress", validD);
 
 //pal lobi
 document.getElementById("boton1").addEventListener("click", function () {
-    window.location.href = "login.html";
+    window.location.href = "registrar.html";
 });
 
 document.getElementById("boton2").addEventListener("click", async () => {
@@ -172,7 +170,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
     } catch (err) {
       console.error("Error en la solicitud RFC:", err);
-      alert("Error al consultar el RFC.");
+      alert("Error al consultar el RFC");
       return;
     }
 
@@ -191,7 +189,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
     } catch (err) {
       console.error("Error en buscar nomUser:", err);
-      alert("Error al consultar el nomUser.");
+      alert("Error al consultar el nomUser");
       return;
     }
 
@@ -284,11 +282,11 @@ document.getElementById("boton2").addEventListener("click", async () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(DH),
         });
-       const text = await res3.text(); // obtenemos el texto bruto
+       const text = await res3.text(); //obtenemos el testo bruto
       if (!res3.ok) {
         throw new Error(`Error HTTP ${res3.status}: ${text}`);
       }
-      const respuesta = JSON.parse(text); // lo parseamos manualmente
+      const respuesta = JSON.parse(text); //lo parseamos manualmente
       console.log(respuesta);
       } catch (err) {
         alert("Error al registrar horario");
@@ -321,12 +319,12 @@ document.getElementById("boton2").addEventListener("click", async () => {
         console.error(err);
       }
       alert("datos guardados exitosamente");
-      window.location.href = "login.html";
+      window.location.href = "registrar.html";
     }
   }
 });
 
-//Aqui pongo que la fecha maxima de nacimiento sea hoy y no el 2085
+//aqui pongo que la fecha maxima de nacimiento sea hoy y no el 2085
 const hoy = new Date().toISOString().split("T")[0];
 document.getElementById("fechaNac").setAttribute("max", hoy);
 

@@ -1,10 +1,13 @@
+//obtenemoz el tipo d ussuario para ber k permisos le otorgamos
+const tipoUsrAc = sessionStorage.getItem("tipoUs");
+
 //constante pal curp
 const curpSi = [
   //numeros
   ...Array.from({ length: 10 }, (_, i) => 48 + i),
-  // Mayúsculas
+  // Mayusculas
   ...Array.from({ length: 26 }, (_, i) => 65 + i),
-  // Minúsculas
+  // Minusculas
   ...Array.from({ length: 26 }, (_, i) => 97 + i),
   209,241
 ];
@@ -13,7 +16,7 @@ const curpSi = [
 function valCurp(e) {
   const codigo = e.keyCode || e.which;
 
-  // Permitir Backspace, Tab, y flechas
+  //borrar, tab y flechas
   if ([8, 9, 37, 38, 39, 40].includes(codigo)) return;
 
   if (!curpSi.includes(codigo)) {
@@ -26,10 +29,10 @@ function validA(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, números del 1 al 9, arroba, etc.
+  //caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ@0-9\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //ascii
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -42,10 +45,10 @@ function validB(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, ñ, números del 1 al 9, arroba, etc.
+  //otros caracteres
   const asies = /^[a-zA-ZñÑ@0-9]$/;
 
-  // También permitimos codigos ASCII específicos:
+  //otro ascii
   const codSi = [43, 45, 46, 95];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -58,10 +61,10 @@ function validC(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, etc.
+  //otros otros caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //otro otro ascii
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -73,10 +76,10 @@ function validC(e) {
 function validD(e) {
   const letra = e.key;
 
-  // permito puros numeros y puntoz
+  //numero y punto nomas
   const asies = /^[0-9.]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //otro otro otro ascii
   if (!asies.test(letra)) {
     e.preventDefault();
   }
@@ -86,10 +89,8 @@ function validD(e) {
 function validE(e) {
   const letra = e.key;
 
-  // permito puros numeros
+  //puro numero
   const asies = /^[0-9]$/;
-
-  // También permitimos códigos ASCII específicos:
   if (!asies.test(letra)) {
     e.preventDefault();
   }
@@ -112,10 +113,14 @@ document.getElementById("tel").addEventListener("keypress", validE);
 
 //de buelta al login
 document.getElementById("boton1").addEventListener("click", function () {
-  window.location.href = "login.html";
+  if(tipoUsrAc=="Empleado" || tipoUsrAc=="Admin"){
+    window.location.href = "registrar.html";
+  }else if(tipoUsrAc=="null"){
+    window.location.href = "login.html";
+  }
 });
 
-//________________________________________________________________________________________________________//
+//magia
 document.getElementById("boton2").addEventListener("click", async () => {
   //bariables para comprobar errores
   let errorCurp = false;
@@ -158,7 +163,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
   //variables del paciente
   let sigIdPac;
   let idUser;
-  let tipoSeg;
+  let tipoSeg=document.getElementById("nomSeg").value;
   let estatura=document.getElementById("estatura").value;
   let curp=document.getElementById("curp").value;
 
@@ -236,7 +241,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
     } catch (err) {
       console.error("Error en la solicitud:", err);
-      alert("Error al consultar el CURP.");
+      alert("Error al consultar el CURP");
       return;
     }
     
@@ -255,7 +260,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
     } catch (err) {
       console.error("Error en buscar nomUser:", err);
-      alert("Error al consultar el nomUser.");
+      alert("Error al consultar el nomUser");
       return;
     }
 
@@ -343,12 +348,16 @@ document.getElementById("boton2").addEventListener("click", async () => {
         console.error(err);
       }
       alert("Datos guardados exitosamente");
-      window.location.href = "login.html";
+      if(tipoUsrAc=="Empleado" || tipoUsrAc=="Admin"){
+        window.location.href = "registrar.html";
+      }else if(tipoUsrAc=="null"){
+        window.location.href = "login.html";
+      }
     }
   }   
 });
 
-//Aqui pongo que la fecha maxima de nacimiento sea hoy y no el 2085
+//aqui pongo que la fecha maxima de nacimiento sea hoy y no el 2085
 const hoy = new Date().toISOString().split("T")[0];
 document.getElementById("fechaNac").setAttribute("max", hoy);
 
@@ -360,6 +369,7 @@ document.getElementById("nomSeg").addEventListener("change", function () {
     campoTexto.style.display = "block";
   } else {
     campoTexto.style.display = "none";
+    document.getElementById("otroTex").value="";
   }
 });
 
@@ -372,6 +382,7 @@ radios.forEach((radio) => {
       campoAlergias.style.display = "block";
     } else {
       campoAlergias.style.display = "none";
+      document.getElementById("otroTex2").value="";
     }
   });
 });
@@ -385,6 +396,7 @@ rad.forEach((radio) => {
       campoEnf.style.display = "block";
     } else {
       campoEnf.style.display = "none";
+      document.getElementById("otroTex3").value="";
     }
   });
 });

@@ -1,0 +1,198 @@
+:root {
+  --color-principal: #3cb371;
+  --color-principal-hover: #3cb371;
+  --color-boton-texto: #3cb371;
+  --color-boton-hover: white;
+  --color-border: #a7cfa7;
+}
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f1f4ff;
+  padding: 40px 20px;
+}
+#btn1 {
+  background-color: white;
+  color: var(--color-principal);
+  border: 2px solid var(--color-principal);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#btn1:hover {
+  background-color: var(--color-principal);
+  transform: translateY(-2px);
+  color: var(--color-boton-hover);
+}
+th {
+  background-color: var(--color-principal);
+  color: white;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.btnMod {
+  background-color: white;
+  color: var(--color-boton-texto);
+  border: 2px solid var(--color-boton-texto);
+}
+.btnMod:hover {
+  background-color: var(--color-boton-texto);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+.btn-cancelar {
+  background-color: white;
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
+}
+.btn-cancelar:hover {
+  background-color: #e74c3c;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+h1 {
+  text-align: center;
+  font-size: 2em;
+  font-weight: 600;
+  color: #2f502c;
+  margin-bottom: 25px;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 10px;
+  color: #32470b;
+}
+select,
+input[type="text"] {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid var(--color-border);
+  border-radius: 10px;
+  background-color: #ffffff;
+  font-size: 1em;
+  color: #2f502c;
+  outline: none;
+  transition: all 0.3s ease;
+}
+select:focus,
+input[type="text"]:focus {
+  border-color: var(--color-principal-hover);
+  box-shadow: 0 0 6px rgba(60, 179, 113, 0.3);
+}
+@media (max-width: 700px) {
+  table {
+    font-size: 0.9em;
+  }
+  th, td {
+    padding: 10px;
+  }
+  #btn1 {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 0 auto 25px;
+  }
+  select,
+  input[type="text"] {
+    width: 100%;
+  }
+}
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.filtros label {
+  display: inline-block;
+  margin: 0;
+}
+.filtros select,
+.filtros input[type="text"] {
+  display: inline-block;
+  width: auto;
+  max-width: 250px;
+}
+.tabla-container {
+  width: 95%;
+  max-width: 100%;
+  margin: 40px auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  animation: fadeIn 0.8s ease forwards;
+  opacity: 0;
+  overflow-x: auto;
+  border: 1px solid #ccd9f0;
+  display: none;
+  transition: opacity 0.5s ease;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+  text-align: center;
+  border: 1px solid #dfe6f3;
+  min-width: unset;
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+th, td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e5ecf5;
+}
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+tr:hover {
+  background-color: #e3f2fd;
+  transition: background-color 0.2s ease;
+}
+table button,
+table input[type="button"] {
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  border: 2px solid transparent;
+}
+.btnMod:disabled:hover,
+.btn-cancelar:disabled:hover {
+  background-color: #FAFAFA;
+  color: inherit;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+  border-color: #ccc;
+  transition: none;
+}
+.btnMod:disabled,
+.btn-cancelar:disabled {
+  pointer-events: none;
+}
+.btnMod:disabled {
+  background-color: #ffffff;
+  color: #8cd8ae;
+  border: 2px solid #8cd8ae;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+  transform: none;
+  transition: none;
+}

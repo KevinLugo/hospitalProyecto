@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f1f4ff;
+  color: #1e2a38;
+}
+.form-container {
+  background-color: white;
+  border-radius: 25px;
+  padding: 40px;
+  width: 90%;
+  max-width: 600px;
+  margin: 50px auto;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  animation: fadeIn 0.8s ease forwards;
+  opacity: 0;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+.form-header {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+form label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #32470b;
+}
+form input[type="text"],
+form input[type="password"],
+form input[type="date"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #ccd9f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #f8fbff;
+  color: #2f502c;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+form input:focus,
+form select:focus,
+form textarea:focus {
+  box-shadow: 0 0 6px rgba(0, 170, 240, 0.3);
+  outline: none;
+}
+form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+form input[type="radio"],
+form input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.1);
+}
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  gap: 15px;
+}
+.button{
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.button:hover {
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 170, 240, 0.3);
+}
+input::placeholder {
+  text-transform: none;
+}
+@media (max-width: 600px) {
+  .form-container {
+    padding: 25px;
+  }
+  .button-group {
+    flex-direction: column;
+  }
+  .button-continue,
+  .button-save {
+    width: 100%;
+  }
+}
+form input:disabled,
+form select:disabled,
+form textarea:disabled {
+  background-color: #eef2f8;
+  border: 2px solid #d6e0f0;
+  color: #8c99a8;
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+form input:disabled::placeholder,
+form textarea:disabled::placeholder {
+  color: #a6b2c0;
+}
+form input:not(:disabled):focus,
+form select:not(:disabled):focus,
+form textarea:not(:disabled):focus {
+  border-color: #00aaf0;
+  box-shadow: 0 0 6px rgba(0, 170, 240, 0.3);
+}

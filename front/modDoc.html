@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleReg&Mod.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Modificar doctor</title>
+    <style>
+        .form-header {
+            background-color: #6d1644;
+        }
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            border-color: #6d1644;
+        }
+
+        .button{
+            color: #6d1644;
+            border: 2px solid #6d1644;
+        }
+
+        .button:hover {
+            background-color: #6d1644;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">Datos del doctor</div>
+    <div class=" button-group">
+            <input type="button" id="boton1" value="Volver" class="button">
+            <button type="button" class="button" id="boton3">Modificar</button>
+        </div>
+        <form>
+            <label for="ced">Cedula</label>
+            <input type="text" id="cedula" placeholder="Escriba el numero de cedula" name="cedula" maxlength="8">
+
+            <label for="RFC">RFC</label>
+            <input type="text" id="rfc" placeholder="Escriba su RFC" name="rfc" maxlength="13" style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase();">
+
+            <label for="usuario">Usuario</label>
+            <input type="text" id="user" placeholder="Escriba el nombre de usuario" name="user" maxlength="20">
+
+            <label for="contra">Contarseña</label>
+            <input type="text" id="psw" placeholder="Escriba su contarseña" name="psw" maxlength="20">
+
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nom" placeholder="Escriba su nombre" name="nom" maxlength="20">
+
+            <label for="APP">Apellido paterno</label>
+            <input type="text" id="apPat" placeholder="Escriba su apellido paterno" name="apPat" maxlength="20">
+
+            <label for="APM">Apellido materno</label>
+            <input type="text" id="apMat" placeholder="Escriba su apellido materno" name="apMat" maxlength="20">
+
+            <label for="nacimiento">Fecha de nacimiento</label>
+            <input type="date" id="fechaNac" name="fechaNac" min="1900-01-01">
+
+            <label for="telef">Telefono</label>
+            <input type="text" id="tel" placeholder="Escriba su telefono" name="tel" maxlength="10">
+
+            <label for="co">Correo</label>
+            <input type="text" id="correo" placeholder="Escriba su correo" name="correo" maxlength="50">
+
+            <label for="horarioTurno">Turno</label>    
+
+            <select name="turno" id="turno">
+                <option value="" selected>Elige una opcion...</option>
+                <option value="Matutino">Matutino</option>
+                <option value="Vespertino">Vespertino</option>
+            </select>
+
+            <form>
+            <p><strong>Horas que va a trabajar:</strong> <span id="mensajeTurno"></span></p>
+            </form>
+
+            <form>
+                <label for="diasChanba">Dias que va a trabajar</label>
+                <label>
+                <input type="checkbox" name="dias" value="Lunes" id="c1">Lunes</label>
+                <label>
+                <input type="checkbox" name="dias" value="Martes" id="c2">Martes</label>
+                <label>
+                <input type="checkbox" name="dias" value="Miercoles" id="c3">Miercoles</label>
+                <label>
+                <input type="checkbox" name="dias" value="Jueves" id="c4">Jueves</label>
+                <label>
+                <input type="checkbox" name="dias" value="Viernes" id="c5">Viernes</label>
+                <label>
+                <input type="checkbox" name="dias" value="Sabado" id="c6">Sabado</label>
+                <label>
+                <input type="checkbox" name="dias" value="Domingo" id="c7">Domingo</label>     
+            </form>
+            <form>
+
+            <label for="kienute">¿El doctor tiene alguna especialidad?</label>
+                <label>
+                <input type="radio" name="opc" id="op11" value="Si">Si</label>
+                <label>
+                <input type="radio" name="opc" id="op22" value="No">No</label>
+            </form>
+
+            <div id="cuantas" style="display: none;">
+                <form>
+                <label for="noEsp">¿Cuantas especialidades tiene el doctor?</label>
+                <select name="numeroEspecialidad" id="noEsp">
+                    <option value="" selected>Elige una opcion...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+                </form>
+            </div>
+
+            <form>
+                <div id="espec"></div>
+            </form>
+
+            <form>
+            <p><strong>Salario:</strong> <span id="salario"></span></p>
+            </form>
+
+            <form>
+                <label for="consultorios disponibles">Consultorios disponibles</label>
+                <select name="consul" id="consul">
+                    <option value="" selected>Elige una opcion...</option>
+                </select>
+            </form>
+
+            <div class="button-group">
+                <button type="button" class="button" id="boton2">Guardar</button>
+        </form>
+        <script src="modDoc.js"></script>
+    </div>
+</body>
+</script>
+
+</html>

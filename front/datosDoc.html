@@ -3,112 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Datos de Recepcionista</title>
-
-  <!-- Fuente -->
+  <title>Datos del doctor</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="styleDatos.css">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #cfe9ff, #f1f4ff);
-      color: #1e2a38;
+    .card{
+      border: 2px solid #6d1644;
     }
-    .card {
-      background-color: white;
-      color: #32470b;
-      padding: 20px 30px;
-      border-radius: 15px;
-      width: 260px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1em;
-      border: 2px solid #000000;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-      animation-delay: 0.5s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    .card:hover{
+      background-color: #6d1644;
     }
-
-    h1 {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 2.2em;
-      font-weight: 600;
-      color: #2c3e50;
+    .info-card{
+      border: 2px solid #6d1644;
     }
-
-    .info-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 50px;
-      padding: 0 20px;
+    .info-card h2{
+      color: #6d1644;
     }
-
-    .info-card {
-      background-color: white;
-      border-radius: 15px;
-      padding: 30px;
-      max-width: 500px;
-      width: 100%;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      border: 2px solid #4a90e2;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
+    input[type="text"], input[type="number"], input[type="password"] {
+      border: 2px solid #6d1644;
     }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    button, .button-continue {
+      border: 2px solid #6d1644;
     }
-
-    .info-card h2 {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      color: #4a90e2;
-      text-align: center;
-    }
-
-    .info-row {
-      margin-bottom: 12px;
-      font-size: 1em;
-    }
-
-    .info-row strong {
-      color: #2c3e50;
-      display: inline-block;
-      width: 160px;
-    }
-
-    @media (max-width: 500px) {
-      .info-row strong {
-        display: block;
-        margin-bottom: 5px;
-        width: auto;
-      }
+    button:hover, .button-continue:hover {
+      background-color: #6d1644;
     }
   </style>
 </head>
 <body>
   <br><br>
 <a href="vistaDoc.html" class="card">Regresar</a>
-  <h1>Información del doctor</h1>
-  <div class="info-container">
+  <h1>Informacion del doctor</h1>
+  <div class="container">
     <div class="info-card">
       <h2 id="nombre">Nombre del doc</h2>
       <div class="info-row"><strong>Cedula:</strong> <span id="cedula">123</span></div>
       <div class="info-row"><strong>RFC:</strong> <span id="rfc">RFC123456789</span></div>
-      <div class="info-row"><strong>Usuario:</strong> <span id="usuario">usuario123</span></div>
-      <div class="info-row"><strong>Contraseña:</strong> <span id="contra">********</span></div>
-      <div class="info-row"><strong>Teléfono:</strong> <span id="telefono">+52 123 456 7890</span></div>
-      <div class="info-row"><strong>Correo:</strong> <span id="correo">correo@ejemplo.com</span></div>
+      <div class="info-row">
+        <strong>Usuario:</strong>
+        <input type="text" id="usuario" value="usuario123" maxlength="20">
+      </div>
+      <div class="info-row">
+        <strong>Contraseña:</strong>
+        <input type="text" id="contra" value="********" maxlength="20">
+      </div>
+      <div class="info-row">
+        <strong>Telefono:</strong>
+        <input type="text" id="tel" value="0123456789" maxlength="10">
+      </div>
+      <div class="info-row">
+        <strong>Correo:</strong>
+        <input type="text" id="correo" value="correo@ejemplo.com" maxlength="50">
+      </div>
       <div class="info-row"><strong>Fecha de nacimiento:</strong> <span id="fechaNac">correo@ejemplo.com</span></div>
       <div class="info-row"><strong>Turno:</strong> <span id="turno">Mañana</span></div>
-      <div class="info-row"><strong>Días:</strong> <span id="dias">Lunes a Viernes</span></div>
+      <div class="info-row"><strong>Dias:</strong> <span id="dias">Lunes a Viernes</span></div>
       <div class="info-row"><strong>Hora de Entrada:</strong> <span id="entrada">2</span></div>
       <div class="info-row"><strong>Hora de Salida:</strong> <span id="salida">3</span></div>
       <div class="info-row"><strong>Especialidades:</strong> <span id="esp">nose</span></div>
@@ -116,6 +65,10 @@
       <div class="info-row"><strong>Numero del consultorio:</strong> <span id="noCon">2</span></div>
       <div class="info-row"><strong>Planta del consultorio:</strong> <span id="planta">1</span></div>
       <div class="info-row"><strong>Estatus:</strong> <span id="estatus">nose</span></div>
+      <div class=" button-group">
+          <button type="button" class="btn-modificar" id="boton1">Modificar</button>
+          <input type="button" id="boton2" value="Guardar" class="button-continue">
+      </div>
     </div>
   </div>
    <br><br>

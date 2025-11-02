@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Datos del paciente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styleDatos.css">
+  <style>
+    .card{
+      border: 2px solid #4a90e2;
+    }
+    .card:hover{
+      background-color: #4a90e2;
+    }
+    .info-card{
+      border: 2px solid #4a90e2;
+    }
+    .info-card h2{
+      color: #4a90e2;
+    }
+    input[type="text"], input[type="number"], input[type="password"] {
+      border: 2px solid #4a90e2;
+    }
+    button, .button-continue {
+      border: 2px solid #4a90e2;
+    }
+    button:hover, .button-continue:hover {
+      background-color: #4a90e2;
+    }
+  </style>
+</head>
+<body>
+  <br><br>
+<a href="vistaPac.html" class="card">Regresar</a>
+  <h1>Informacion del paciente</h1>
+  <div class="container">
+    <div class="info-card">
+      <h2 id="nombre">Nombre del paciente</h2>
+      <div class="info-row"><strong>CURP:</strong> <span id="curp"></span></div>
+      <div class="info-row">
+        <strong>Usuario:</strong>
+        <input type="text" id="usuario" value="usuario123" maxlength="20">
+      </div>
+      <div class="info-row">
+        <strong>Contraseña:</strong>
+        <input type="text" id="contra" value="********" maxlength="20">
+      </div>
+      <div class="info-row">
+        <strong>Telefono:</strong>
+        <input type="text" id="tel" value="0123456789" maxlength="10">
+      </div>
+      <div class="info-row">
+        <strong>Correo:</strong>
+        <input type="text" id="correo" value="correo@ejemplo.com" maxlength="50">
+      </div>
+      <div class="info-row"><strong>Fecha de nacimiento:</strong> <span id="fechaNac"></span></div>
+      <div class="info-row"><strong>Tipo de Seguro:</strong> <span id="tipoSeg"></span></div>
+      <div class="info-row"><strong>Estatura:</strong> <span id="estatura"></span></div>
+      <div class="info-row"><strong>Tipo de sangre:</strong> <span id="tipoSan"></span></div>
+      <div class="info-row"><strong>Alergias:</strong> <span id="ale"></span></div>
+      <div class="info-row"><strong>Vacunas:</strong> <span id="vac"></span></div>
+      <div class="info-row"><strong>Enfermedades cronicas:</strong> <span id="enferCron"></span></div>
+      <div class="info-row"><strong>Antecedentes familiares:</strong> <span id="anteFam"></span></div>
+      <div class=" button-group">
+          <button type="button" class="btn-modificar" id="boton1">Modificar</button>
+          <input type="button" id="boton2" value="Guardar" class="button-continue">
+      </div>
+    </div>
+  </div>
+   <br><br>
+    <br><br>
+<script src="datosPac.js"></script>
+</body>
+</html>

@@ -6,10 +6,10 @@ function valido(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, etc.
+  //caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //ascii
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -21,22 +21,23 @@ document.getElementById("busquedaMed").addEventListener("keypress", valido);
 
 let totalVenta = 0;
 
-// Cargar servicios y todos los medicamentos al iniciar
+//kargar med y serbisios
 document.addEventListener("DOMContentLoaded", async () => {
   await cargarServicios();
-  await cargarMedicamentos(); // Carga todo
+  await cargarMedicamentos();
 
+  //buska dependiendo del testo
   document.getElementById("busquedaMed").addEventListener("input", async (e) => {
     const texto = e.target.value.trim();
     if (texto === "") {
-      await cargarMedicamentos(); // Muestra todos
+      await cargarMedicamentos();
     } else {
       await buscarMedicamentos(texto);
     }
   });
 });
 
-// Cargar todos los medicamentos
+//medikamentos
 async function cargarMedicamentos() {
   try {
     const res = await fetch("http://localhost:5000/api/med");
@@ -47,7 +48,7 @@ async function cargarMedicamentos() {
   }
 }
 
-// Buscar medicamentos por texto
+//medicamentos por testo
 async function buscarMedicamentos(texto) {
   try {
     const res = await fetch("http://localhost:5000/api/med2", {
@@ -62,13 +63,13 @@ async function buscarMedicamentos(texto) {
   }
 }
 
-// Rellenar el select con medicamentos
+//reyena el selec con medicamentos
 function llenarSelectMedicamentos(medicamentos) {
   const select = document.getElementById("listaMedicamentos");
   select.innerHTML = "";
 
   medicamentos.forEach(med => {
-    // Verifica que el stock sea mayor que 0
+    //checka k el stock sea mayor a 0
     const option = document.createElement("option");
     option.value = parseInt(med.idMed);
     option.textContent = `${med.nomMed} - $${parseFloat(med.precioMed).toFixed(2)} (Stock: ${med.stock})`;
@@ -81,7 +82,6 @@ function llenarSelectMedicamentos(medicamentos) {
       option.disabled = true;
       option.textContent += " [Sin stock]";
     }
-
     select.appendChild(option);
   });
 }
@@ -133,7 +133,7 @@ function agregarFila(tipo, nombre, precio) {
   calcularTotal();
 }
 
-// Agregar medicamento
+//agrega medisina
 document.getElementById("agregarMed").addEventListener("click", () => {
   const select = document.getElementById("listaMedicamentos");
   const option = select.options[select.selectedIndex];
@@ -145,22 +145,19 @@ document.getElementById("agregarMed").addEventListener("click", () => {
   const precio = option.dataset.precio;
   const stock = parseInt(option.dataset.stock);
 
-  // Verificar cuántos ya se han agregado
   const yaAgregados = contadorMed[idMed] || 0;
 
   if (yaAgregados >= stock) {
-    alert(`⚠ Ya se ha agregado el máximo disponible de ${nombre} (Stock: ${stock}).`);
+    alert(`Ya se ha agregado el maximo disponible de ${nombre} (Stock: ${stock}).`);
     return;
   }
 
-  // Agregar medicamento a la tabla
+  //agrega medisina a la tabla
   agregarAFila("Medicamento", nombre, precio);
-
-  // Incrementar el contador
   contadorMed[idMed] = yaAgregados + 1;
 });
 
-// Agregar servicio
+//agrega serbisios
 document.getElementById("agregarServ").addEventListener("click", () => {
   const select = document.getElementById("listaServicios");
   const option = select.options[select.selectedIndex];
@@ -169,7 +166,7 @@ document.getElementById("agregarServ").addEventListener("click", () => {
   }
 });
 
-// Agregar a la tabla de venta
+//agrega serbisios a la tabla
 function agregarAFila(tipo, nombre, precio) {
   const tbody = document.getElementById("tablaVenta");
   const fila = document.createElement("tr");
@@ -178,23 +175,21 @@ function agregarAFila(tipo, nombre, precio) {
     <td>${tipo}</td>
     <td>${nombre}</td>
     <td>$${parseFloat(precio).toFixed(2)}</td>
-    <td><button class="btn-quitar">Quitar</button></td>
+    <td><button class="button">Quitar</button></td>
   `;
 
   tbody.appendChild(fila);
   actualizarTotal(precio);
 }
-// Quitar elemento
+
 document.getElementById("tablaVenta").addEventListener("click", (e) => {
-  if (e.target.classList.contains("btn-quitar")) {
+  if (e.target.classList.contains("button")) {
     const fila = e.target.closest("tr");
     const tipo = fila.children[0].textContent;
     const nombre = fila.children[1].textContent;
     const precio = parseFloat(fila.children[2].textContent.replace("$", ""));
     fila.remove();
     actualizarTotal(-precio);
-
-    // Si es medicamento, bajar el contador
     if (tipo === "Medicamento") {
       const opt = [...document.getElementById("listaMedicamentos").options]
         .find(o => o.dataset.nombre === nombre);
@@ -214,7 +209,7 @@ function actualizarTotal(cambio) {
 
 document.getElementById("btnRegistrar").addEventListener("click", async () => {
   if (totalVenta === 0) {
-    alert("No hay elementos para registrar.");
+    alert("No hay elementos para registrar");
     return;
   }
 
@@ -223,12 +218,12 @@ document.getElementById("btnRegistrar").addEventListener("click", async () => {
 
   const idUser = sessionStorage.getItem("idUsuario");
   if (!idUser) {
-    alert("No hay sesión iniciada.");
+    alert("No hay sesion iniciada");
     return;
   }
 
   try {
-    // 1. Obtener ID de recepcionista
+    //obtiene id dela recep
     const resRecep = await fetch("http://localhost:5000/api/idRecep", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -236,11 +231,11 @@ document.getElementById("btnRegistrar").addEventListener("click", async () => {
     });
     const [{ idRecep }] = await resRecep.json();
 
-    // 2. Obtener ID nuevo de ticket
+    //obtiene id del tiket
     const resTicketId = await fetch("http://localhost:5000/api/sigTicketId");
     const { sigIdTicket } = await resTicketId.json();
 
-    // 3. Registrar ticket
+    //guarda el tiket
     const hoy = new Date().toISOString().split("T")[0];
     await fetch("http://localhost:5000/api/regTicket", {
       method: "POST",
@@ -253,7 +248,7 @@ document.getElementById("btnRegistrar").addEventListener("click", async () => {
       }),
     });
 
-    // 4. Obtener ID base para detTicket
+    //obtiene id del Dtiket
     const resDT = await fetch("http://localhost:5000/api/sigDTicketId");
     let { sigIdDTicket } = await resDT.json();
 
@@ -275,13 +270,12 @@ document.getElementById("btnRegistrar").addEventListener("click", async () => {
 
         idMed = parseInt(opt.value);
         noMed = 1;
-        console.log("Intentando restar medicamento:", { idMed, noMed });
 
         if (!Number.isInteger(idMed) || idMed <= 0) {
-        console.error("❌ ID de medicamento inválido:", idMed);
+        console.error("ID de medicamento invalido:", idMed);
         continue;
         }
-        // ✅ Validación extra aquí:
+        //balidasion estra
         if (!isNaN(idMed) && idMed > 0) {
             await fetch("http://localhost:5000/api/menosMed", {
             method: "POST",
@@ -298,7 +292,7 @@ document.getElementById("btnRegistrar").addEventListener("click", async () => {
         noServ = 1;
       }
 
-      // Insertar en detTicket
+      //mete el Dtiket
       await fetch("http://localhost:5000/api/regDTicket", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -314,11 +308,11 @@ document.getElementById("btnRegistrar").addEventListener("click", async () => {
       });
     }
 
-    alert("Venta registrada correctamente.");
+    alert("Venta registrada correctamente");
     document.getElementById("btnCobrar").style.display = "inline-block";
   } catch (err) {
     console.error("Error en registro de venta:", err);
-    alert("Ocurrió un error al registrar la venta.");
+    alert("Ocurrio un error al registrar la venta");
   }
 });
 
@@ -344,10 +338,10 @@ document.getElementById("btnCobrar").addEventListener("click", async () => {
       }),
     });
 
-    alert("Pago registrado correctamente.");
+    alert("Pago registrado correctamente");
     location.reload();
   } catch (err) {
     console.error("Error al cobrar:", err);
-    alert("Ocurrió un error al procesar el pago.");
+    alert("Ocurrio un error al procesar el pago");
   }
 });

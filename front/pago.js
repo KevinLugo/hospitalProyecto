@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const idPago = sessionStorage.getItem("idPago");
   if (!idPago) {
-    alert("No se encontró el pago. Redirigiendo...");
-    window.location.href = "menuCitas.html";
+    alert("No se encontro el pago. Redirigiendo...");
+    window.location.href = "citas.html";
     return;
   }
 
@@ -12,8 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idPago: parseInt(idPago) }),
     });
-
-    const data = (await res.json())[0]; // Recordset es un array, tomamos el primero
+    const data = (await res.json())[0];
 
     document.getElementById("especialidad").textContent = data.esp;
     document.getElementById("doctor").textContent = `Dr. ${data.nom} ${data.apPat} ${data.apMat}`;
@@ -24,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("estatus").textContent = data.statPago;
   } catch (err) {
     console.error("Error al cargar info del pago:", err);
-    alert("No se pudo obtener la información del pago.");
+    alert("No se pudo obtener la informacion del pago");
   }
 
   document.getElementById("btnPagar").addEventListener("click", async () => {
@@ -40,11 +39,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idPago: parseInt(idPago), formaPago }),
       });
-
       const result = await res.json();
     } catch (err) {
       console.error("Error al registrar pago:", err);
-      alert("Ocurrió un error al procesar el pago.");
+      alert("Ocurrio un error al procesar el pago");
     }
 
     try {
@@ -53,13 +51,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idPago: parseInt(idPago) }),
       });
-
       const result = await res.json();
       alert(result.mensaje || "Pago registrado correctamente.");
       window.location.href = "citas.html";
     } catch (err) {
       console.error("Error al registrar pago:", err);
-      alert("Ocurrió un error al procesar el pago.");
+      alert("Ocurrio un error al procesar el pago");
     }
   });
 });

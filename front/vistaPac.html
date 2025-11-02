@@ -4,41 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Panel del Paciente</title>
-  <link rel="stylesheet" href="estilo1.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styleVistas.css" />
+  <style>
+    nav{
+      background-color: #4a90e2;
+    }
+    .card{
+      border: 2px solid #4a90e2;
+    }
+    .card:hover{
+      background-color: #4a90e2;
+    }
+  </style>
 </head>
-<body>
-  <div class="container">
-<div class="bienvenida">
-  <h2>Bienvenido(a), Paciente <span id="nombre" class="resaltado"></span></h2>
-  <p class="subtitulo">¿Qué desea realizar hoy?</p>
-</div> 
-<div id="info">
-  <div id="izq_info">
-      <h4 class="subT">DATOS PERSONALES DEL PACIENTE</h4>
-      <p><strong>CURP:</strong> <span id="curp"></span></p>
-      <p><strong>Nombre:</strong> <span id="nombreF"></span>
-        <span id="apellidoP"></span>
-        <span id="apellidoM"></span>
-      </p>
-      <p><strong>Edad:</strong> <span id="edad_persona"></span></p>
-      <p><strong>Correo:</strong> <span id="correo"></span></p>
-      <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
-      <p><strong>Tipo de Seguro:</strong> <span id="TSeguro"></span></p>
-      <p><strong>Estatura:</strong> <span id="Estatura"></span></p>
-      <p><strong>Nombre de usuario:</strong> <span id="user"></span></p>
-      <p><strong>contraseña:</strong> <span id="psw"></span></p>
-    </div>
-</div>
-<br>
-  <div class="buttons">
-  <a href="genCita.html" class="boton-enlace">Hacer Cita</a>
-  <a href="citas.html" class="boton-enlace">Ver Historial de Citas</a>
-  <a href="histoMed.html" class="boton-enlace">Ver Historial Médico</a>
-  <a href="login.html" class="boton-enlace">Salir de sesion</a>
-</div>
- 
 
+<body>
+  <h1 id="welcome" class="fade-in">Bienvenido, [Nombre]</h1>
+
+  <nav>
+    ¿Que desea revisar?
+  </nav>
+
+  <div class="container">
+    <a href="datosPac.html" class="card">Datos personales</a>
+    <a href="genCita.html" class="card">Hacer cita</a>
+    <a href="citas.html" class="card">Historial de citas</a>
+    <a href="login.html" class="card">Cerrar sesion</a>
   </div>
-      <script src="vistaPac.js"></script>
+<script src="vistaPac.js"></script>
 </body>
 </html>

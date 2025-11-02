@@ -4,23 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style2.css">
-    <title>Document</title>
-</head>
+    <link rel="stylesheet" href="styleReg&Mod.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Registrar doctor</title>
+    <style>
+        .form-header {
+            background-color: #6d1644;
+        }
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            border-color: #6d1644;
+        }
 
+        .button{
+            color: #6d1644;
+            border: 2px solid #6d1644;
+        }
+
+        .button:hover {
+            background-color: #6d1644;
+        }
+    </style>
+</head>
 <body>
     <div class="form-container">
-        <div class="form-header" style="background-color: #d40a00;"">Datos del doctor</div>
+        <div class="form-header">Datos del doctor</div>
     <div class=" button-group">
-            <input type="button" id="boton1" value="Volver" class="button-continue">
+            <input type="button" id="boton1" value="Volver" class="button">
         </div>
         <form>
             <label for="ced">Cedula</label>
             <input type="text" id="cedula" placeholder="Escriba el numero de cedula" name="cedula" maxlength="8">
 
             <label for="RFC">RFC</label>
-            <input type="text" id="rfc" placeholder="Escriba su RFC" name="rfc" maxlength="13"
-                style="text-transform: uppercase;">
+            <input type="text" id="rfc" placeholder="Escriba su RFC" name="rfc" maxlength="13" style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase();">
 
             <label for="usuario">Usuario</label>
             <input type="text" id="user" placeholder="Escriba el nombre de usuario" name="user" maxlength="20">
@@ -49,7 +67,7 @@
             <label for="horarioTurno">Turno</label>    
 
             <select name="turno" id="turno">
-                <option value="" selected>Elige una opción...</option>
+                <option value="" selected>Elige una opcion...</option>
                 <option value="Matutino">Matutino</option>
                 <option value="Vespertino">Vespertino</option>
             </select>
@@ -88,7 +106,7 @@
                 <form>
                 <label for="noEsp">¿Cuantas especialidades tiene el doctor?</label>
                 <select name="numeroEspecialidad" id="noEsp">
-                    <option value="" selected>Elige una opción...</option>
+                    <option value="" selected>Elige una opcion...</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -113,12 +131,12 @@
             <form>
                 <label for="consultorios disponibles">Consultorios disponibles</label>
                 <select name="consul" id="consul">
-                    <option value="" selected>Elige una opción...</option>
+                    <option value="" selected>Elige una opcion...</option>
                 </select>
             </form>
 
             <div class="button-group">
-                <button type="button" class="button-save" id="boton2">Guardar</button>
+                <button type="button" class="button" id="boton2">Guardar</button>
         </form>
         <script src="regDoc.js"></script>
     </div>

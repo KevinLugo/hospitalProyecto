@@ -4,28 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registro de Ventas</title>
-  <link rel="stylesheet" href="estilo4.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styleVentas.css" />
 </head>
 <body>
   <div class="contenedor">
     <h2>Registro de Venta</h2>
-
-    <!-- Buscar medicamentos -->
     <div class="campo">
       <label for="busquedaMed">Buscar medicamento:</label>
       <input type="text" id="busquedaMed" placeholder="Ej. paracetamol" />
       <select id="listaMedicamentos"></select>
       <button id="agregarMed">Agregar Medicamento</button>
     </div>
-
-    <!-- Buscar servicios -->
     <div class="campo">
       <label for="listaServicios">Seleccionar servicio:</label>
       <select id="listaServicios"></select>
       <button id="agregarServ">Agregar Servicio</button>
     </div>
-
-    <!-- Tabla de productos/servicios seleccionados -->
     <table border="1">
       <thead>
         <tr>
@@ -36,7 +31,6 @@
         </tr>
       </thead>
       <tbody id="tablaVenta">
-        <!-- Elementos añadidos dinámicamente -->
       </tbody>
     </table>
 
@@ -44,11 +38,10 @@
       <strong>Total: $<span id="total">0</span> MXN</strong>
     </div>
 
-    <!-- Botones -->
     <div class="acciones">
+      <button onclick="window.location.href='vistaRec.html'">Volver al menu</button>
       <button id="btnRegistrar">Registrar Venta</button>
       <button id="btnCobrar" style="display: none;">Cobrar</button>
-      <button onclick="window.location.href='vistaRec.html'">Volver al menú</button>
     </div>
   </div>
 

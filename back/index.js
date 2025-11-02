@@ -29,8 +29,6 @@ import { regDocEsp } from './consultas.js';
 import { getACId } from './consultas.js';
 import { consulSi } from './consultas.js';
 import { regAC } from './consultas.js';
-import { vistaPac } from './consultas.js';
-import { vistaPac2 } from './consultas.js';
 import { idPac } from './consultas.js';
 import { docEsp } from './consultas.js';
 import { horario } from './consultas.js';
@@ -53,7 +51,7 @@ import { allPac} from './consultas.js';
 import { allRec } from './consultas.js';
 import { allDoc } from './consultas.js';
 import { byeDoc } from './consultas.js';
-import { olaDoc } from './consultas.js';
+import { olaEmp } from './consultas.js';
 import { infoPagoCita } from './consultas.js';
 import { stock } from './consultas.js';
 import { stock2 } from './consultas.js';
@@ -77,6 +75,24 @@ import { recetas } from './consultas.js';
 import { recetas2 } from './consultas.js';
 import { bitacora } from './consultas.js';
 import { bitacora2 } from './consultas.js';
+import { elPac2 } from './consultas.js';
+import { laRecep2 } from './consultas.js';
+import { elDoc2 } from './consultas.js';
+import { infoUser } from './consultas.js';
+import { infoPac } from './consultas.js';
+import { infoHM } from './consultas.js';
+import { consulSi2 } from './consultas.js';
+import { infoEmp } from './consultas.js';
+import { infoHor } from './consultas.js';
+import { espDoc } from './consultas.js';
+import { delDocEsp } from './consultas.js';
+import { infoAC } from './consultas.js';
+import { actCed } from './consultas.js';
+import { changeDU } from './consultas.js';
+import { cancCitaDoc } from './consultas.js';
+import { devolPago } from './consultas.js';
+import { vistaAdm } from './consultas.js';
+import { byeRecep } from './consultas.js';
 
 //configurasion del espres
 const app = express();
@@ -102,7 +118,7 @@ app.post("/api/login", async (req, res) => {
       res.json({
         encontrado: true,
         mensaje: `Login exitoso`,
-        datos: resultado[0], // contiene idUser y tipoUs
+        datos: resultado[0],
       });
     }
   } catch (error) {
@@ -113,7 +129,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-//busca el usuario y contraseña de la tabla usuario pal login2
+//si el usuario nosta actibo lo manda alv
 app.post("/api/login2", async (req, res) => {
   const { usr } = req.body;
   const { psw } = req.body;
@@ -129,7 +145,7 @@ app.post("/api/login2", async (req, res) => {
       res.json({
         encontrado: true,
         mensaje: `Login exitoso`,
-        datos: resultado[0], // contiene idUser y tipoUs
+        datos: resultado[0],
       });
     }
   } catch (error) {
@@ -200,7 +216,7 @@ app.post("/api/buscarRfc", async (req, res) => {
   }
 });
 
-//buscar si ya existe el curp para decirle nel
+//buscar si ya existe un usuario kon ese nombre para decirle nel
 app.post("/api/buscarUser", async (req, res) => {
   const { nomUser } = req.body;
   try {
@@ -307,7 +323,7 @@ app.post("/api/regHistMed", async (req, res) => {
   }
 });
 
-//creo el endpoint para buscar hisMed y sumarle 1
+//creo el endpoint para buscar id del empleado y sumarle 1
 app.get("/api/sigIdEmp", async (req, res) => {
   try {
     const sigIdEmp = await getEmpId();
@@ -329,7 +345,7 @@ app.post("/api/regEmp", async (req, res) => {
   }
 });
 
-//creo el endpoint para buscar paciente y sumarle 1
+//creo el endpoint para buscar id del horario y sumarle 1
 app.get("/api/sigIdHora", async (req, res) => {
   try {
     const sigIdHora = await getHoraId();
@@ -339,7 +355,7 @@ app.get("/api/sigIdHora", async (req, res) => {
   }
 });
 
-//aka es el endpoint para registrar al paciente
+//aka es el endpoint para registrar el horario del empleado
 app.post("/api/regHora", async (req, res) => {
   try {
     const { idHora, idEmp, dias, horaEnt, horaSal, turno } = req.body;
@@ -352,7 +368,7 @@ app.post("/api/regHora", async (req, res) => {
 });
 
 
-//creo el endpoint para buscar hisMed y sumarle 1
+//creo el endpoint para buscar id de la recep y sumarle 1
 app.get("/api/sigIdRecep", async (req, res) => {
   try {
     const sigIdRecep = await getRecepId();
@@ -362,7 +378,7 @@ app.get("/api/sigIdRecep", async (req, res) => {
   }
 });
 
-//aka es el endpoint para registrar al histMed
+//aka es el endpoint para registrar a la recep
 app.post("/api/regRecep", async (req, res) => {
   try {
     const { idRecep, idEmp } = req.body;
@@ -421,7 +437,7 @@ app.get("/api/sigACId", async (req, res) => {
 // crea el endpoint para buscar consultorios disponibles
 app.get("/api/consul", async (req, res) => {
   try {
-    const consul = await consulSi(); // ← aquí estaba mal el nombre
+    const consul = await consulSi();
     res.json({ consul });
   } catch (err) {
     console.error("Error en /api/consul:", err);
@@ -441,29 +457,7 @@ app.post("/api/regAC", async (req, res) => {
   }
 });
 
-//busca los datos del paciente para darselos api
-app.post("/api/datosPac", async (req, res) => {
-  const { idUser } = req.body;
-  try {
-    const resul = await vistaPac(idUser);
-    res.json(resul[0]); 
-  } catch (err) {
-    res.status(500).json({ error: "Error al obtener los datos del paciente" });
-  }
-});
-
-//busca los datos del paciente2 para darselos api
-app.post("/api/datosPac2", async (req, res) => {
-  const { idUser } = req.body;
-  try {
-    const resul = await vistaPac2(idUser);
-    res.json(resul[0]); 
-  } catch (err) {
-    res.status(500).json({ error: "Error al obtener los datos del paciente2" });
-  }
-});
-
-//busca el ide del pac api
+//busca el ide del pac api para generar cita
 app.post("/api/idPac", async (req, res) => {
   const { idUser } = req.body;
   try {
@@ -518,7 +512,7 @@ app.post("/api/nonoFecha", async (req, res) => {
   }
 });
 
-//creo el endpoint para bbuscar pago y sumarle 1
+//creo el endpoint para buscar pago y sumarle 1
 app.get("/api/sigPagoId", async (req, res) => {
   try {
     const sigIdPago = await getPagoId();
@@ -557,7 +551,7 @@ app.post("/api/regCita", async (req, res) => {
     await regCita({ idCita, cedula, idPac, idPago, fechaC, fechaR, statCita, horaCita, esp });
     res.json({ mensaje: "Cita registrada correctamente" });
   } catch (err) {
-    console.error("Error al registrar cita:", err); // <-- MUY IMPORTANTE
+    console.error("Error al registrar cita:", err);
     res.status(500).json({ mensaje: "Error en el servidor en regCita", error: err.message });
   }
 });
@@ -569,19 +563,30 @@ app.post("/api/gandalf", async (req, res) => {
     const resul = await noHora(cedula, fechaR, horaCita);
     res.json(resul);
   } catch (err) {
-    console.error("Error al obtener nono hora:", err);
+    console.error("Error en gandalf:", err);
     res.status(500).json({ error: "Error al obtener fecha y hora del doc en cita" });
   }
 });
 
-//busca el ide del pac api
+//busca el ide de la info de las citas del pasiente api
 app.post("/api/citas", async (req, res) => {
   const { idPac } = req.body;
   try {
     const resul = await citas(idPac);
     res.json(resul);
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener las citas del paicnete" });
+    res.status(500).json({ error: "Error al obtener las citas del paciente" });
+  }
+});
+
+//muestra la info del pago al paciente api
+app.post("/api/infoPagoCita", async (req, res) => {
+  const { idPago } = req.body;
+  try {
+    const resul = await infoPagoCita(idPago);
+    res.json(resul);
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener la info del pago" });
   }
 });
 
@@ -597,7 +602,7 @@ app.post('/api/formaPago', async (req, res) => {
   }
 });
 
-//api para aktualisar el pago
+//api para aktualisar el pago en tabla cita
 app.post('/api/pagoCita', async (req, res) => {
   try {
     const { idPago } = req.body;
@@ -632,7 +637,7 @@ app.post("/api/datosRec", async (req, res) => {
   }
 });
 
-//busca los datos del paciente para darselos api
+//busca todos los datos del paciente para darselos api
 app.post("/api/elPac", async (req, res) => {
   const { curp } = req.body;
   try {
@@ -643,7 +648,7 @@ app.post("/api/elPac", async (req, res) => {
   }
 });
 
-//busca los datos del paciente para darselos api
+//busca todos los datos de la recep para darselos api
 app.post("/api/laRec", async (req, res) => {
   const { rfc } = req.body;
   try {
@@ -654,7 +659,7 @@ app.post("/api/laRec", async (req, res) => {
   }
 });
 
-//busca los datos del paciente para darselos api
+//busca todos los datos del doc para darselos api
 app.post("/api/elDoc", async (req, res) => {
   const { rfc } = req.body;
   try {
@@ -703,7 +708,7 @@ app.post("/api/byeDoc", async (req, res) => {
   const { idUser } = req.body;
   try {
     const result = await byeDoc(idUser);
-    //Si result es falsy o vacío, envía un objeto por defecto
+    //Si result es falso o vacio, envia un objeto por defecto
     res.json(result || { rowsAffected: [0] });
   } catch (err) {
     console.error("Error en /api/byeDoc:", err);
@@ -712,25 +717,13 @@ app.post("/api/byeDoc", async (req, res) => {
 });
 
 //regresamos alv al doc
-app.post("/api/olaDoc", async (req, res) => {
+app.post("/api/olaEmp", async (req, res) => {
   const { idUser } = req.body;
   try {
-    const resul = await olaDoc(idUser);
+    const resul = await olaEmp(idUser);
     res.json(resul); 
   } catch (err) {
-    res.status(500).json({ error: "No jalo el olaDoc" });
-  }
-});
-
-
-//muestra la info del pago al paciente api
-app.post("/api/infoPagoCita", async (req, res) => {
-  const { idPago } = req.body;
-  try {
-    const resul = await infoPagoCita(idPago); //
-    res.json(resul); //
-  } catch (err) {
-    res.status(500).json({ error: "Error al obtener la info del pago" });
+    res.status(500).json({ error: "No jalo el olaEmp" });
   }
 });
 
@@ -756,7 +749,7 @@ app.post("/api/med2", async (req, res) => {
   }
 });
 
-//api stock medikamentos
+//api info de serbisios
 app.get("/api/servicios", async (req, res) => {
   try {
     const serv = await servicios();
@@ -778,7 +771,7 @@ app.post("/api/idRecep", async (req, res) => {
   }
 });
 
-//creo el endpoint para buscar cita y sumarle 1
+//creo el endpoint para buscar id del tiket y sumarle 1
 app.get("/api/sigTicketId", async (req, res) => {
   try {
     const sigIdTicket = await getTicketId();
@@ -788,7 +781,7 @@ app.get("/api/sigTicketId", async (req, res) => {
   }
 });
 
-//registrar el tiket api
+//registrar el tiket mayor api
 app.post("/api/regTicket", async (req, res) => {
   try {
     const { idTicket, idRecep, fechaTicket, total } = req.body;
@@ -800,7 +793,7 @@ app.post("/api/regTicket", async (req, res) => {
   }
 });
 
-//creo el endpoint para buscar cita y sumarle 1
+//creo el endpoint para buscar Dticket y sumarle 1
 app.get("/api/sigDTicketId", async (req, res) => {
   try {
     const sigIdDTicket = await getDTicketId();
@@ -810,7 +803,7 @@ app.get("/api/sigDTicketId", async (req, res) => {
   }
 });
 
-//registrar el tiket api
+//registrar el mini tiket api
 app.post("/api/regDTicket", async (req, res) => {
   try {
     const { idDTicket, idTicket, noServ, noMed, subtotal, idServ, idMed } = req.body;
@@ -822,7 +815,7 @@ app.post("/api/regDTicket", async (req, res) => {
   }
 });
 
-//creo el endpoint para buscar cita y sumarle 1
+//creo el endpoint para buscar tiket mayor y sumarle 1
 app.get("/api/sigPagoTId", async (req, res) => {
   try {
     const sigIdPagoT = await getpagoTId();
@@ -832,7 +825,7 @@ app.get("/api/sigPagoTId", async (req, res) => {
   }
 });
 
-//registrar el tiket api
+//registrar el pago del tiket api
 app.post("/api/regPagoT", async (req, res) => {
   try {
     const { idPagoT, idTicket, fechaPago, montoT } = req.body;
@@ -844,7 +837,7 @@ app.post("/api/regPagoT", async (req, res) => {
   }
 });
 
-//api para aktualisar el pago
+//api para restar medikamentos
 app.post('/api/menosMed', async (req, res) => {
   try {
     const { idMed, noMed } = req.body;
@@ -852,7 +845,7 @@ app.post('/api/menosMed', async (req, res) => {
     res.json({ mensaje: 'Se resto los medicamentos de manera exitosa' });
   } catch (error) {
     console.error("Error al actualizar los medicamentos:", error);
-    res.status(500).json({ error: "Error al actualizar la forma de pago" });
+    res.status(500).json({ error: "Error al actualizar los medicamentos" });
   }
 });
 
@@ -867,7 +860,7 @@ app.post("/api/datosDoc", async (req, res) => {
   }
 });
 
-//busca los datos del doc para darselos api
+//obtengo cedula kon idUsuario api
 app.post("/api/cedula", async (req, res) => {
   const { idUser } = req.body;
   try {
@@ -878,7 +871,7 @@ app.post("/api/cedula", async (req, res) => {
   }
 });
 
-//busca las citas del doc
+//busca las citas pendientes del doc
 app.post("/api/citasDoc", async (req, res) => {
   const { cedula } = req.body;
   try {
@@ -922,7 +915,7 @@ app.post("/api/regReceta", async (req, res) => {
   }
 });
 
-//api para aktualisar el pago
+//api para aktualisar la cita yase atendio
 app.post('/api/atendida', async (req, res) => {
   try {
     const { idCita } = req.body;
@@ -956,7 +949,7 @@ app.post("/api/recetas2", async (req, res) => {
   }
 });
 
-//recetas creadas
+//bikatora
 app.post("/api/bitacora", async (req, res) => {
   const { cedula } = req.body;
   try {
@@ -967,7 +960,7 @@ app.post("/api/bitacora", async (req, res) => {
   }
 });
 
-//recetas creadas
+//bitakora kon buskeda
 app.post("/api/bitacora2", async (req, res) => {
   const { cedula, nombre } = req.body;
   try {
@@ -975,6 +968,215 @@ app.post("/api/bitacora2", async (req, res) => {
     res.json(resul); 
   } catch (err) {
     res.status(500).json({ error: "Error al obtener los datos de la bitacora2" });
+  }
+});
+
+//a partir de aki empese yo kon modifikaciones para terminar la pagina chida por culpa de progra web
+//busca los datos del paciente pa modificarlos api
+app.post("/api/elPac2", async (req, res) => {
+  const { idUser } = req.body;
+  try {
+    const resul = await elPac2(idUser);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos de  EL paciente 2" });
+  }
+});
+
+//busca los datos de la recep pa modifikarlos api
+app.post("/api/laRec2", async (req, res) => {
+  const { idUser } = req.body;
+  try {
+    const resul = await laRecep2(idUser);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos de LA recepcionista 2" });
+  }
+});
+
+//busca los datos del doc para modifikarlos api
+app.post("/api/elDoc2", async (req, res) => {
+  const { idUser } = req.body;
+  try {
+    const resul = await elDoc2(idUser);
+    res.json(resul); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos de EL doctor 2" });
+  }
+});
+
+//api para aktualisar info del usuario
+app.post('/api/infoUser', async (req, res) => {
+  try {
+    const { idUser, nom, apPat ,apMat, fechaNac, tel, correo, nomUser ,contra } = req.body;
+    await infoUser({ idUser, nom, apPat ,apMat, fechaNac, tel, correo, nomUser ,contra }); 
+    res.json({ mensaje: 'Informacion del usuario actualizada correctamente' });
+  } catch (error) {
+    console.error("Error al actualizar la info del usuario:", error);
+    res.status(500).json({ error: "Error al actualizar la informacion del usuario" });
+  }
+});
+
+//api para aktualisar info del paciente
+app.post('/api/infoPac', async (req, res) => {
+  try {
+    const { idUser, tipoSeg, estatura , curp } = req.body;
+    await infoPac({ idUser, tipoSeg, estatura, curp }); 
+    res.json({ mensaje: 'Informacion del paciente actualizada correctamente' });
+  } catch (error) {
+    console.error("Error al actualizar la info del paciente:", error);
+    res.status(500).json({ error: "Error al actualizar la informacion del paciente" });
+  }
+});
+
+//api para aktualisar info del istorial mediko
+app.post('/api/infoHM', async (req, res) => {
+  try {
+    const { idUser, tipoSangre, alergias , vacunas, enferCron, anteFam } = req.body;
+    await infoHM({ idUser, tipoSangre, alergias , vacunas, enferCron, anteFam }); 
+    res.json({ mensaje: 'Informacion del historial medico actualizada correctamente' });
+  } catch (error) {
+    console.error("Error al actualizar la info del historial medico:", error);
+    res.status(500).json({ error: "Error al actualizar la informacion del historial medico" });
+  }
+});
+
+//crea la api para buzkar konsultorios junto con el consul del doc
+app.post("/api/consul2", async (req, res) => {
+  try {
+    const { idUser } = req.body;
+    const result = await consulSi2(idUser);
+    res.json({ consul2: result });
+  } catch (error) {
+    console.error("Error al obtener consultorios:", error);
+    res.status(500).json({ error: "Error en consul2" });
+  }
+});
+
+//api para aktualisar info del empleado
+app.post('/api/infoEmp', async (req, res) => {
+  try {
+    const { idUser, salario, estatus, rfc } = req.body;
+    await infoEmp({ idUser, salario, estatus, rfc }); 
+    res.json({ mensaje: 'Informacion del empleado actualizada correctamente' });
+  } catch (error) {
+    console.error("Error al actualizar la info del empleado:", error);
+    res.status(500).json({ error: "Error al actualizar la informacion del empleado" });
+  }
+});
+
+//api para aktualisar info del horario
+app.post('/api/infoHor', async (req, res) => {
+  try {
+    const { idUser, dias, horaEnt, horaSal, turno } = req.body;
+    await infoHor({ idUser, dias, horaEnt, horaSal, turno }); 
+    res.json({ mensaje: 'Informacion del horario actualizada correctamente' });
+  } catch (error) {
+    console.error("Error al actualizar la info del horario:", error);
+    res.status(500).json({ error: "Error al actualizar la informacion del horario" });
+  }
+});
+
+//api pa actuializar sedula
+app.put("/api/actCed", async (req, res) => {
+  const { idUser, cedula } = req.body;
+  const resultado = await actCed(idUser, cedula);
+  if (resultado.success) res.json({ mensaje: "Cedula actualizada correctamente" });
+  else res.status(500).json({ error: resultado.error });
+});
+
+//crea la api para buzkar las esp que tiene el doc aorita para comparar y eliminar o agregar
+app.get("/api/espDoc/:idUser", async (req, res) => {
+  try {
+    const { idUser } = req.params;
+    const result = await espDoc(parseInt(idUser));
+    res.json(result);
+  } catch (error) {
+    console.error("Error al obtener las especialidades del doctor:", error);
+    res.status(500).json({ error: "Error al obtener las especialidades" });
+  }
+});
+
+//elimina una espesialidad del doctor
+app.delete('/api/delDocEsp/:cedula/:idEsp', async (req, res) => {
+  try {
+    const { cedula, idEsp } = req.params;
+    await delDocEsp({ cedula, idEsp });
+    res.json({ mensaje: `Especialidad ${idEsp} eliminada correctamente para el doctor ${cedula}` });
+  } catch (error) {
+    console.error("Error al eliminar especialidad:", error);
+    res.status(500).json({ error: "Error al eliminar especialidad del doctor" });
+  }
+});
+
+//api para aktualisar info del asigCon
+app.post('/api/infoAC', async (req, res) => {
+  try {
+    const { cedula, idCon, statCon, horaIn, horaFin, dias } = req.body;
+    await infoAC({ cedula, idCon, statCon, horaIn, horaFin, dias }); 
+    res.json({ mensaje: 'Informacion del AC actualizada correctamente' });
+  } catch (error) {
+    console.error("Error al actualizar la info del AC:", error);
+    res.status(500).json({ error: "Error al actualizar la informacion del AC" });
+  }
+});
+
+//api para aktualizar algunoz datoz del usuario
+app.post('/api/changeDU', async (req, res) => {
+  try {
+    const { idUser, nomUser, contra, correo, tel } = req.body;
+    await changeDU({ idUser, nomUser, contra, correo, tel }); 
+    res.json({ mensaje: 'Informacion actualizada correctamente' });
+  } catch (error) {
+    console.error("Error al actualizar la info en changeDU:", error);
+    res.status(500).json({ error: "Error al actualizar la informacion" });
+  }
+});
+
+//api para k el doc pueda cancelar cita
+app.post('/api/cancCitaDoc', async (req, res) => {
+  try {
+    const { idCita } = req.body;
+    await cancCitaDoc({ idCita }); 
+    res.json({ mensaje: 'Cita cancelada correctamente' });
+  } catch (error) {
+    console.error("Error al cancelar la cita por parte del doc:", error);
+    res.status(500).json({ error: "Error al cancelar la cita" });
+  }
+});
+
+//api para aktualizar algunaz infos usuario
+app.post('/api/devolPago', async (req, res) => {
+  try {
+    const { idCita } = req.body;
+    await devolPago({ idCita }); 
+    res.json({ mensaje: 'Devolucion hecha correctamente' });
+  } catch (error) {
+    console.error("Error al devolver el pago:", error);
+    res.status(500).json({ error: "Error al devolver pago" });
+  }
+});
+
+//busca el nombre del admin para darselos api
+app.post("/api/datosAdm", async (req, res) => {
+  const { idUser } = req.body;
+  try {
+    const resul = await vistaAdm(idUser);
+    res.json(resul[0]); 
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener los datos del admin" });
+  }
+});
+
+//saka alv a la recep
+app.post("/api/byeRecep", async (req, res) => {
+  const { idUser } = req.body;
+  try {
+    const result = await byeRecep(idUser);
+    res.json(result || { rowsAffected: [0] });
+  } catch (err) {
+    console.error("Error en /api/byeRecep:", err);
+    res.status(500).json({ error: "No jalo el byeRecep" });
   }
 });
 

@@ -1,10 +1,14 @@
+//inicialiso la variable a nulo cuando llegan al login
+let tipoUs=null;
+sessionStorage.setItem("tipoUs", tipoUs);
+
 document.getElementById("boton1").addEventListener("click", async () => {
   const usr = document.getElementById("user").value;
   const psw = document.getElementById("psw").value;
   if (usr == "" || psw == "") {
     alert("kepaso maistro?");
   } else {
-    //aki ago consulta y si existe yamame
+    //aki ago consulta y si existe chido
     try {
       const tipoUsr = await fetch("http://localhost:5000/api/login", {
         method: "POST",
@@ -14,10 +18,12 @@ document.getElementById("boton1").addEventListener("click", async () => {
       const dataUsr = await tipoUsr.json();
       if (dataUsr.encontrado == false) {
         alert(dataUsr.mensaje);
-        return; // salimos
+        return;
       } else {
         const idUsuario = dataUsr.datos.idUser;
+        tipoUs=dataUsr.datos.tipoUs;
         sessionStorage.setItem("idUsuario", idUsuario);
+        sessionStorage.setItem("tipoUs", tipoUs);
         if (dataUsr.datos.tipoUs == "Paciente") {
           alert("Bienvendo!");
           window.location.href = "vistaPac.html";
@@ -40,7 +46,7 @@ document.getElementById("boton1").addEventListener("click", async () => {
                 alert("Bienvendo!");
                 window.location.href = "vistaRec.html";
               } else if(dataUsr2.datos.estatus=="No activo"){
-                alert("Ya lo dimos de baja don");
+                alert("Ya lo dimos de baja");
               }else{
                 alert("Y ute kiene¿");
               }
@@ -50,6 +56,9 @@ document.getElementById("boton1").addEventListener("click", async () => {
             alert("Error al consultar el usuario2.");
             return;
           }
+        }else if(dataUsr.datos.tipoUs == "Admin"){
+                alert("Bienvendo!");
+                window.location.href = "vistaAdm.html";
         }
       }
     } catch (err) {
@@ -61,5 +70,5 @@ document.getElementById("boton1").addEventListener("click", async () => {
 });
 
 document.getElementById("boton2").addEventListener("click", function () {
-  window.location.href = "regPac.html"; // Redirige a otra página
+  window.location.href = "regPac.html";
 });

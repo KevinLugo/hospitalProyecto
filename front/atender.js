@@ -3,10 +3,10 @@ function valido(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, números del 1 al 9, arroba, etc.
+  //permitir algunos caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ@0-9\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //y otros ascii especificos
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -38,7 +38,6 @@ try {
     alergias: datosPac.alergias,
     tipoSangre: datosPac.tipoSangre
   };
-  console.log(datos);
   document.getElementById("TSeguro").innerText = datos.TSeguro;
   document.getElementById("Estatura").innerText = datos.Estatura;
   document.getElementById("edad_persona").innerText = datos.edad;
@@ -53,7 +52,7 @@ try {
 
 } catch (err) {
   console.error("Error en la solicitud:", err);
-  alert("Error al consultar los datos del pac.");
+  alert("Error al consultar los datos del paciente");
 }
 })();
 
@@ -70,7 +69,7 @@ let idCita = new URLSearchParams(window.location.search).get("idCita");
         const tbody = document.getElementById("cuerpoTabla");
         const fila = document.createElement("tr");
 
-        // Crear cada input con su evento de validación
+        //Crea inputs con caracteres permitidos
         const diag = document.createElement("input");
         diag.type = "text";
         diag.name = "diag";
@@ -96,13 +95,12 @@ let idCita = new URLSearchParams(window.location.search).get("idCita");
         observ.name = "observ";
         observ.addEventListener("keypress", valido);
 
-        // Crear celdas y agregar los inputs
+        //crea celdas y agregar los inputs
         const celdas = [diag, med, dosis, intervalo, observ].map(input => {
             const td = document.createElement("td");
             td.appendChild(input);
             return td;
         });
-
         celdas.forEach(td => fila.appendChild(td));
         tbody.appendChild(fila);
     }
@@ -116,7 +114,7 @@ document.getElementById("formReceta").addEventListener("submit", async function 
 
   let recetas = [];
 
-  // 🔍 Primero: validar que ningún campo esté vacío
+  //valida que ningun campo este vacio
   for (let fila of filas) {
     const diag = fila.querySelector("input[name='diag']").value.trim();
     const med = fila.querySelector("input[name='med']").value.trim();
@@ -125,14 +123,14 @@ document.getElementById("formReceta").addEventListener("submit", async function 
     const observ = fila.querySelector("input[name='observ']").value.trim();
 
     if (!diag || !med || !dosis || !intervalo || !observ) {
-      alert("Por favor, completa todos los campos en todas las filas antes de enviar la receta.");
-      return; // Detiene el proceso antes de insertar
+      alert("Por favor, completa todos los campos en todas las filas antes de enviar la receta");
+      return;
     }
 
     recetas.push({ diag, med, dosis, intervalo, observ });
   }
 
-  // ✅ Segundo: ahora que todos los datos están validados, enviamos las recetas
+  //enviamos las recetas
   let idRecActual = idRecetaGlobal;
 
   for (let receta of recetas) {
@@ -163,14 +161,14 @@ document.getElementById("formReceta").addEventListener("submit", async function 
       const resultado = await aten.json();
     } catch (err) {
       console.error("Error al registrar pago:", err);
-      alert("Ocurrió un error al procesar el pago.");
+      alert("Ocurrio un error al procesar el pago");
     }
   alert("Receta registrada correctamente");
-  window.location.href = "vistaDoc.html";
+  window.location.href = "recetas.html";
 });
 
-    (async function () {
-      await obtenerIdReceta();
-      agregarFila();
-    })();
+(async function () {
+  await obtenerIdReceta();
+  agregarFila();
+})();
 

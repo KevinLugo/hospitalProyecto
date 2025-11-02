@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const idUsuario = sessionStorage.getItem("idUsuario");
   if (!idUsuario) {
-    alert("No hay sesión activa. Por favor inicia sesión.");
+    alert("No hay sesion activa, por favor inicia sesion");
     return;
   }
 
   const tbody = document.querySelector("#tablaCitas tbody");
 
-  // Paso 1: Obtener cédula
+  //obtenemos la cedula del dok
   let cedula;
   try {
     const ced = await fetch("http://localhost:5000/api/cedula", {
@@ -17,14 +17,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     const cedulaObj = await ced.json();
     cedula = cedulaObj[0]?.cedula;
-    console.log("Cédula:", cedula);
   } catch (err) {
-    console.error("Error al obtener cédula:", err);
-    alert("No se pudo obtener la cédula.");
+    console.error("Error al obtener cedula:", err);
+    alert("No se pudo obtener la cedula");
     return;
   }
 
-  // Paso 2: Cargar citas (ya con cedula lista)
+  //kargamos citas
   const radios = document.getElementsByName("filtroHora");
   radios.forEach(r => r.addEventListener("change", cargarCitas));
   await cargarCitas();
@@ -64,8 +63,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           <td>${cita.statCita}</td>
           <td>${cita.horaCita}</td>
           <td>${cita.esp}</td>
-          <td><button class="btn-atender" data-idcita="${cita.idCita}" ${!habilitado ? "disabled" : ""}>Atender</button></td>
-        `;
+          <td>
+            <button class="btn-atender" data-idcita="${cita.idCita}" ${!habilitado ? "disabled" : ""}>Atender</button>
+            <button class="btn-cancelar" data-idcita="${cita.idCita}">Cancelar</button>
+          </td>`;
         tbody.appendChild(fila);
       });
     } catch (err) {
@@ -73,20 +74,48 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert("Hubo un problema al cargar las citas.");
     }
   }
-
   tbody.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn-atender")) {
       const idCita = e.target.dataset.idcita;
       window.location.href = `atender.html?idCita=${idCita}`;
     }
   });
+
+  tbody.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("btn-cancelar")) {
+      const idCita = e.target.dataset.idcita;
+
+      if (confirm("¿Seguro que desea cancelar esta cita?")) {
+        try {
+          await fetch("http://localhost:5000/api/cancCitaDoc", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idCita }),
+          });
+
+          await fetch("http://localhost:5000/api/devolPago", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idCita }),
+          });
+
+          alert("Cita cancelada exitosamente");
+          cargarCitas(); //recargamos las sitas
+        } catch (err) {
+          console.error("Error al cancelar cita:", err);
+          alert("No se pudo cancelar la cita.");
+        }
+      }
+    }
+  });
 });
+
 
 function estaEnHora(fechaCita, horaRango) {
   const hoy = new Date();
   const fecha = new Date(fechaCita + "T00:00:00");
 
-  // La cita debe ser hoy
+  //la cita debe ser hoy
   if (
     hoy.getFullYear() !== fecha.getFullYear() ||
     hoy.getMonth() !== fecha.getMonth() ||

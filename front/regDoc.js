@@ -26,9 +26,9 @@ const tipoEsp = [
 const rfcSi = [
   //numeros
   ...Array.from({ length: 10 }, (_, i) => 48 + i),
-  // Mayúsculas
+  // Mayusculas
   ...Array.from({ length: 26 }, (_, i) => 65 + i),
-  // Minúsculas
+  // Minusculas
   ...Array.from({ length: 26 }, (_, i) => 97 + i),
   209,
   241,
@@ -38,7 +38,7 @@ const rfcSi = [
 function valRfc(e) {
   const codigo = e.keyCode || e.which;
 
-  // Permitir Backspace, Tab, y flechas
+  //borrar, tab y flechas
   if ([8, 9, 37, 38, 39, 40].includes(codigo)) return;
 
   if (!rfcSi.includes(codigo)) {
@@ -51,10 +51,10 @@ function validA(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, números del 1 al 9, arroba, etc.
+  //caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ@0-9\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //y ascii
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -67,10 +67,10 @@ function validB(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, ñ, números del 1 al 9, arroba, etc.
+  //otros caracteres
   const asies = /^[a-zA-ZñÑ@0-9]$/;
 
-  // También permitimos codigos ASCII específicos:
+  //otro ascii
   const codSi = [43, 45, 46, 95];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -83,10 +83,10 @@ function validC(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, etc.
+  //otros otros caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //otros otros ascii
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
@@ -98,10 +98,8 @@ function validC(e) {
 function validD(e) {
   const letra = e.key;
 
-  //permito puros numeros
+  //numero nomas
   const asies = /^[0-9]$/;
-
-  // También permitimos códigos ASCII específicos:
   if (!asies.test(letra)) {
     e.preventDefault();
   }
@@ -120,7 +118,7 @@ document.getElementById("cedula").addEventListener("keypress", validD);
 
 //pal lobi
 document.getElementById("boton1").addEventListener("click", function () {
-  window.location.href = "login.html";
+  window.location.href = "registrar.html";
 });
 
 //le pone los consultorios disponibles
@@ -133,8 +131,8 @@ async function konsul() {
     const select = document.getElementById("consul");
 
     if (consultorios.length === 0) {
-      alert("No hay consultorios disponibles actualmente.");
-      window.location.href = "login.html"; //amonos balio madre
+      alert("No hay consultorios disponibles actualmente");
+      window.location.href = "registrar.html"; //amonos balio madre
       return;
     }
 
@@ -144,7 +142,7 @@ async function konsul() {
     //opsion por defecto
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
-    defaultOption.textContent = "Elige una opción...";
+    defaultOption.textContent = "Elige una opcion...";
     select.appendChild(defaultOption);
 
     //agrega opsiones
@@ -156,7 +154,7 @@ async function konsul() {
     });
   } catch (err) {
     console.error("Error al cargar consultorios:", err);
-    alert("Hubo un error al obtener los consultorios.");
+    alert("Hubo un error al obtener los consultorios");
   }
 }
 
@@ -238,7 +236,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
   //Se verifica siai repetidos
   const rep = new Set(cuales).size !== cuales.length;
   if (rep) {
-    alert("No puedes seleccionar la misma especialidad más de una vez");
+    alert("No puedes seleccionar la misma especialidad mas de una vez");
     return;
   }
   const idsEsp = cuales.map((nombre) => {
@@ -255,11 +253,11 @@ document.getElementById("boton2").addEventListener("click", async () => {
   //   alert("Debe seleccionar un consultorio");
   // } else {
   //   console.log("Consultorio seleccionado con ID:", idCon);
-  //   // Aquí puedes usar `idCon` para enviarlo en un fetch, etc.
+  //   // Aqui puedes usar `idCon` para enviarlo en un fetch, etc.
   // }
   let sn = document.querySelector('input[name="opc"]:checked');
     if (!sn) {
-    alert("Dejó un campo sin contestar");
+    alert("Dejo un campo sin contestar");
   } else {
     let siono = sn.value;
     if (siono === "Si" && numEsp==="") {
@@ -313,7 +311,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
     } catch (err) {
       console.error("Error en la solicitud RFC:", err);
-      alert("Error al consultar el RFC.");
+      alert("Error al consultar el RFC");
       return;
     }
 
@@ -332,11 +330,11 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
     } catch (err) {
       console.error("Error en buscar nomUser:", err);
-      alert("Error al consultar el nomUser.");
+      alert("Error al consultar el nomUser");
       return;
     }
 
-    //comprubo k noexistan datos enel sistema
+    //compruebo k noexistan datos enel sistema
     if (errorCed == true) {
       alert("Ya existe un doctor con esa cedula en el sistema");
     } else if (errorRFC == true) {
@@ -347,7 +345,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       //siono
       siono = document.querySelector('input[name="opc"]:checked').value;
 
-      //Asigno las horas k ba a chanbiar los chanbiadores
+      //asigno las horas k ba a chanbiar los chanbiadores
       if (turno == "Matutino") {
         horaEnt = "05:00";
         horaSal = "14:00";
@@ -368,18 +366,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
 
       //varuable para ingresar los datos en json del usuario
-      let DU = {
-        idUser: sigIdUser,
-        nom,
-        apPat,
-        apMat,
-        fechaNac,
-        tel,
-        contra,
-        nomUser,
-        correo,
-        idTipoUser,
-      };
+      let DU = { idUser: sigIdUser,nom,apPat,apMat,fechaNac,tel,contra,nomUser,correo,idTipoUser };
 
       //aca ingreso los datos del usuario
       try {
@@ -406,14 +393,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
       let tSal = salario + "";
       //bariable para meter datos tipo json
-      let DE = {
-        idEmp: sigIdEmp,
-        idUser,
-        salario: tSal,
-        estatus,
-        rfc,
-        idTipoEmp,
-      };
+      let DE = { idEmp: sigIdEmp,idUser,salario: tSal,estatus,rfc,idTipoEmp };
 
       //aca ingreso los datos del empleado
       try {
@@ -491,7 +471,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
           });
           const respuesta = await res.json();
         } catch (err) {
-          alert("Error al registrar especialidad básica");
+          alert("Error al registrar especialidad basica");
           console.error(err);
         }
       } else if (siono === "Si") {
@@ -527,15 +507,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
 
       //yatusae
-      let DAC = {
-        idAsigCon: sigIdAC,
-        cedula,
-        idCon,
-        statCon,
-        horaIn: horaEnt,
-        horaFin: horaSal,
-        dias,
-      };
+      let DAC = { idAsigCon: sigIdAC,cedula,idCon,statCon,horaIn: horaEnt,horaFin: horaSal,dias };
 
       //aca ingreso los datos del AC
       try {
@@ -551,7 +523,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
       }
 
       alert("datos guardados exitosamente");
-      // window.location.href = "login.html";
+      window.location.href = "registrar.html";
     }
   }
 });

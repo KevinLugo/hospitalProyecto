@@ -1,11 +1,19 @@
+//bariable global
+let tipoUsrAc = sessionStorage.getItem("tipoUs");
+
 (async function () {
   let idPac;
-  const idUsuario = sessionStorage.getItem("idUsuario");
-  if (!idUsuario) {
-    alert("No hay sesión activa. Por favor inicia sesión.");
-    throw new Error("idUsuario no está definido");
+  let idUsuario;
+  //aca obtuve la id desde el login o desde la tabla de usuarios
+  if(tipoUsrAc=="Paciente") {
+    idUsuario = sessionStorage.getItem("idUsuario");
+  } else if(tipoUsrAc=="Empleado" || tipoUsrAc=="Admin"){
+    idUsuario = sessionStorage.getItem("idUsuario2");
   }
-
+  if (!idUsuario) {
+      alert("No hay sesion activa. Por favor inicia sesion");
+      throw new Error("idUsuario no esta definido");
+  }
   try {
     const datoPac = await fetch("http://localhost:5000/api/idPac", {
       method: "POST",
@@ -17,7 +25,7 @@
     idPac = dataId.idPac;
   } catch (err) {
     console.error("no obtuvimos idPac:", err);
-    alert("Error al consultar la id del paciente.");
+    alert("Error al consultar la id del paciente");
     return;
   }
 
@@ -29,8 +37,6 @@
     });
 
     const datosCita = await dataCita.json();
-    console.log("Datos recibidos:", datosCita);
-
     const tabla = document
       .getElementById("tablaCitas")
       .getElementsByTagName("tbody")[0];
@@ -45,14 +51,13 @@
       if (cita.statCita === "Agendada pendiente de pago") {
         metodoPagoHTML = `<button class="btn-pagar" data-idpago="${cita.idPago}">Pagar</button>`;
       } else if (cita.formaPago === "debito") {
-        metodoPagoHTML = `<span>Pagó con débito</span>`;
+        metodoPagoHTML = `<span>Pago con debito</span>`;
       } else if (cita.formaPago === "credito") {
-        metodoPagoHTML = `<span>Pagó con crédito</span>`;
+        metodoPagoHTML = `<span>Pago con credito</span>`;
       } else {
         metodoPagoHTML = `<span>${cita.statCita}</span>`;
       }
 
-      // Botón cancelar (opcional: solo si está pendiente)
       let botonCancelarHTML = "";
       if (
         cita.statCita === "Agendada pendiente de pago" ||
@@ -65,8 +70,8 @@
 
       fila.innerHTML = `
         <td>${cita.statCita}</td>
-        <td>${soloFecha(cita.fechaC)}</td>         <!-- Fecha de la cita -->
-        <td>${soloFecha(cita.fechaR)}</td>         <!-- Fecha de creación -->
+        <td>${soloFecha(cita.fechaC)}</td>
+        <td>${soloFecha(cita.fechaR)}</td>
         <td>${cita.horaCita}</td>
         <td>${cita.nom} ${cita.apPat} ${cita.apMat}</td>
         <td>${cita.esp}</td>
@@ -74,34 +79,26 @@
         <td>${cita.planta}</td>
         <td>${cita.statPago}</td>
         <td>${cita.monto}</td>
-        <td>${fechaConHora(cita.limPago)}</td>     <!-- Fecha límite con hora -->
+        <td>${fechaConHora(cita.limPago)}</td>
         <td>${metodoPagoHTML}</td>
         <td>${botonCancelarHTML}</td>
       `;
 
       tabla.appendChild(fila);
     });
+    tabla.addEventListener("click", (e) => {
+      if (e.target.classList.contains("btn-pagar")) {
+        const idPago = e.target.dataset.idpago;
+        sessionStorage.setItem("idPago", idPago);
+        window.location.href = "pago.html";
+      }
+    });
   } catch (err) {
     console.error("Error en la solicitud:", err);
-    alert("Error al consultar los datos del paciente.");
+    alert("Error al consultar las citas del paciente");
   }
-  // Delegar evento para los botones de pago
-  tabla.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btnPago")) {
-      const metodo = e.target.dataset.metodo;
-      const fila = e.target.closest("tr");
-      fila.setAttribute("data-idPago", cita.idPago);
-      console.log("Método de pago seleccionado:", metodo);
-      // Aquí puedes extraer más datos de la fila si necesitas hacer una petición
-    }
-
-    if (e.target.classList.contains("btnCancelar")) {
-      const fila = e.target.closest("tr");
-      console.log("Cita a cancelar:", fila);
-      // Aquí puedes extraer identificadores y hacer una solicitud para cancelar
-    }
-  });
 })();
+
 
 //cancela la cita y le apliko politika d cancelacion
 document.addEventListener("click", async (e) => {
@@ -110,24 +107,24 @@ document.addEventListener("click", async (e) => {
     const idCita = fila.getAttribute("data-idCita");
 
     if (!idCita) {
-      console.error("No se encontró idCita en la fila.");
+      console.error("No se encontro idCita en la fila.");
       alert("Error interno al cancelar la cita.");
       return;
     }
 
-    const confirmar = confirm("¿Estás seguro de que deseas cancelar esta cita?");
+    const confirmar = confirm("¿Estas seguro de que deseas cancelar esta cita?");
     if (!confirmar) return;
 
     try {
-      const fechaTexto = fila.children[2].textContent; // <td>fechaR</td>
+      const fechaTexto = fila.children[2].textContent;
       const horaTexto = fila.children[3]?.textContent?.trim();
 
-      // Permite "15:00-16:00" o "15:00 - 16:00" o incluso "15:00   -    16:00"
+      //separa la ora si la tengo como por ejemplo 15:30-16:30
       const partesHora = horaTexto.split(/\s*-\s*/);
 
       if (partesHora.length !== 2) {
-        alert("Error: La hora de la cita no está bien definida.");
-        console.error("Hora inválida:", horaTexto);
+        alert("Error: La hora de la cita no esta bien definida.");
+        console.error("Hora invalida:", horaTexto);
         return;
       }
 
@@ -145,29 +142,28 @@ document.addEventListener("click", async (e) => {
 
       const ahora = new Date();
 
-      // Bloquear si ya está dentro del rango de la cita
+      //bloquea si ya esta en la cita
       if (ahora >= inicio && ahora <= fin) {
-        alert("No puedes cancelar la cita porque ya está en curso.");
+        alert("No puedes cancelar la cita porque ya esta en curso.");
         return;
       }
 
-      // Política de cancelación
+      //politika de cancelacion
       const horasDiferencia = (inicio - ahora) / (1000 * 60 * 60);
       let mensaje = "";
       let nuevoEstado = "";
 
       if (horasDiferencia >= 48) {
         nuevoEstado = "Cancelada paciente 48h";
-        mensaje = "Se le aplica política de cancelación de 48h. Le regresamos el 100% de su dinero.";
+        mensaje = "Se le aplica politica de cancelacion de 48h. Le regresamos el 100% de su dinero.";
       } else if (horasDiferencia >= 24) {
         nuevoEstado = "Cancelada paciente 24h";
-        mensaje = "Se le aplica política de cancelación de 24h. Le regresamos el 50% de su dinero.";
+        mensaje = "Se le aplica politica de cancelacion de 24h. Le regresamos el 50% de su dinero.";
       } else {
         nuevoEstado = "Cancelada paciente <24h";
-        mensaje = "Se le aplica política de cancelación de menos de 24h. No le regresaremos el dinero.";
+        mensaje = "Se le aplica politica de cancelacion de menos de 24h. No le regresaremos el dinero.";
       }
 
-      // Enviar a backend
       const res = await fetch("http://localhost:5000/api/canCitaP", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -180,15 +176,20 @@ document.addEventListener("click", async (e) => {
 
     } catch (err) {
       console.error("Error al cancelar la cita:", err);
-      alert("Ocurrió un error al cancelar la cita.");
+      alert("Ocurrio un error al cancelar la cita.");
     }
   }
 });
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("boton1").addEventListener("click", function () {
-    window.location.href = "vistaPac.html";
+  document.getElementById("boton1").addEventListener("click", (e) => {
+      e.preventDefault();//es para k el a no haga su funcion normal
+      if (tipoUsrAc=="Paciente") {
+      window.location.href = "vistaPac.html";
+    } else if(tipoUsrAc=="Empleado" || tipoUsrAc=="Admin"){
+      window.location.href = "citasRec.html";
+    }
   });
 });
 
@@ -204,8 +205,6 @@ document.addEventListener("click", (e) => {
 function soloFecha(fecha) {
   return fecha.split("T")[0].split("-").reverse().join("/");
 }
-
-
 
 //fechaChida2
 function fechaConHora(fecha) {

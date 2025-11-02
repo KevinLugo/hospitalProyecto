@@ -1,36 +1,34 @@
-//valido caracteres  del nombre, nombre del seguro, y alergias
+// valido caracteres del nombre, nombre del seguro, y alergias
 function valido(e) {
   const letra = e.key;
   const codigo = e.keyCode || e.which;
 
-  // Permitir letras, acentos, ñ, etc.
+  //caracteres
   const asies = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]$/;
 
-  // También permitimos códigos ASCII específicos:
+  //ascii
   const codSi = [130, 144, 160, 161, 162, 163, 164, 165, 181, 214, 224, 233];
 
   if (!asies.test(letra) && !codSi.includes(codigo)) {
     e.preventDefault();
   }
 }
-//yatusae
+
 document.getElementById("busqueda").addEventListener("keypress", valido);
 
-//nosabes yonemoz
 document.addEventListener("DOMContentLoaded", () => {
   const tabla = document.querySelector("#tablaMed tbody");
   const inputBuscar = document.getElementById("busqueda");
-  const btnBuscar = document.getElementById("btnBuscar");
 
-  // Al cargar la página, mostrar todos los medicamentos
   cargarTodosLosMedicamentos();
 
-  // Búsqueda por nombre
-  btnBuscar.addEventListener("click", async () => {
+  //buska mientars escribe
+  inputBuscar.addEventListener("input", async () => {
     const nombre = inputBuscar.value.trim();
 
+    //si no hay texto muestra todos los medikamentos
     if (!nombre) {
-      alert("Escribe un nombre para buscar.");
+      cargarTodosLosMedicamentos();
       return;
     }
 
@@ -45,11 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
       mostrarTabla(data);
     } catch (err) {
       console.error("Error al buscar medicamento:", err);
-      alert("Error al buscar medicamentos.");
+      alert("Error al buscar medicamentos");
     }
   });
 
-  // Función para cargar todos los medicamentos
   async function cargarTodosLosMedicamentos() {
     try {
       const res = await fetch("http://localhost:5000/api/med");
@@ -61,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Mostrar medicamentos en la tabla
+  //muestra los  medicamentos en la tabla
   function mostrarTabla(meds) {
     tabla.innerHTML = "";
 
@@ -73,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     meds.forEach((med) => {
       const fila = document.createElement("tr");
 
-      // Convertimos la fecha de caducidad al formato YYYY-MM-DD
+      //formato chido para la fecha
       const fechaCad = new Date(med.feCad);
       const fechaFormateada = fechaCad.toISOString().split("T")[0];
 

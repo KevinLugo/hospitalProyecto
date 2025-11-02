@@ -1,145 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #eef6ff, #ffffff);
-      color: #2f502c;
-      padding: 40px 20px;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2em;
-      margin-bottom: 30px;
-    }
-
-    .search-section {
-      max-width: 500px;
-      margin: 0 auto 40px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .search-section input {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 1em;
-    }
-
-    input[type=number]::-webkit-outer-spin-button,
-    input[type=number]::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    input[type=number] {
-      -moz-appearance: textfield;
-    }
-
-    .search-section button {
-      background-color: #4ae24a;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .search-section button:hover {
-      background-color: #3cbd35;
-    }
-
-    .card-table {
-      max-width: 800px;
-      margin: 0 auto;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      background-color: white;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      text-align: left;
-      padding: 15px;
-      border-bottom: 1px solid #eee;
-    }
-
-    th {
-      background-color: #f2f6fc;
-      font-weight: 600;
-      color: #44773c;
-    }
-
-    tr:hover {
-      background-color: #f9fbff;
-    }
-
-    .cancel-btn {
-      background-color: #e74c3c;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9em;
-    }
-
-    .cancel-btn:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-  </style>
-    <title>Citas atender</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Atender cita — Receta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styleAtender.css">
 </head>
 <body>
-    <div id="info">
-  <div id="izq_info">
-      <h4 class="subT">DATOS PERSONALES DEL PACIENTE</h4>
-      <p><strong>Nombre:</strong> <span id="nombreF"></span>
-        <span id="apellidoP"></span>
-        <span id="apellidoM"></span>
-      </p>
-      <p><strong>Edad:</strong> <span id="edad_persona"></span></p>
-      <p><strong>Tipo de Seguro:</strong> <span id="TSeguro"></span></p>
-      <p><strong>Estatura:</strong> <span id="Estatura"></span></p>
-      <p><strong>Tipo de sangre:</strong> <span id="tipoSangre"></span></p>
-      <p><strong>Enfermedades cronicas:</strong> <span id="enfCron"></span></p>
-      <p><strong>Vacunas:</strong> <span id="vac"></span></p>
-      <p><strong>Alergias:</strong> <span id="ale"></span></p>
-      <p><strong>Antecedentes familiares:</strong> <span id="anteFam"></span></p>
-    </div>
-     <h2>Receta</h2>
-  <button id="btnAgregarFila">Agregar fila</button>
-  <form id="formReceta">
-    <table id="tablaReceta">
-      <thead>
-        <tr>
-          <th>Diagnóstico</th>
-          <th>Medicamento</th>
-          <th>Dosis</th>
-          <th>Intervalo</th>
-          <th>Observaciones</th>
-        </tr>
-      </thead>
-      <tbody id="cuerpoTabla"></tbody>
-    </table>
-    <button type="submit">Guardar Receta</button>
-  </form>
-</div>
-<script src="atender.js"></script>
+  <div class="topbar">
+    <h1 class="title">Atender cita</h1>
+    <a href="vistaDoc.html" class="btn">Regresar</a>
+  </div>
+
+  <!-- tarjeta paciente y receta -->
+  <div class="wrap">
+
+    <!--datos del paciente-->
+    <section class="card" aria-label="Datos del paciente">
+      <h2>Datos del paciente</h2>
+
+      <div class="datos-list">
+        <div class="dato"><label>Nombre</label><span id="nombreF">—</span></div>
+        <div class="dato"><label>Apellido paterno</label><span id="apellidoP">—</span></div>
+        <div class="dato"><label>Apellido materno</label><span id="apellidoM">—</span></div>
+        <div class="dato"><label>Edad</label><span id="edad_persona">—</span></div>
+        <div class="dato"><label>Tipo de sangre</label><span id="tipoSangre">—</span></div>
+        <div class="dato"><label>Tipo de seguro</label><span id="TSeguro">—</span></div>
+        <div class="dato"><label>Estatura</label><span id="Estatura">—</span></div>
+        <div class="dato"><label>Enfermedades cronicas</label><span id="enfCron">—</span></div>
+        <div class="dato"><label>Vacunas</label><span id="vac">—</span></div>
+        <div class="dato"><label>Alergias</label><span id="ale">—</span></div>
+        <div class="dato"><label>Antecedentes familiares</label><span id="anteFam">—</span></div>
+      </div>
+    </section>
+
+    <!-- receta -->
+    <section class="card-receta" aria-label="Receta">
+      <h2>Receta medica</h2>
+
+      <div class="receta-controls">
+        <div class="left">Agrega las filas necesarias y guarda la receta</div>
+        <div class="controls-right">
+          <button id="btnAgregarFila" type="button" class="btn-outline">Agregar fila</button>
+        </div>
+      </div>
+
+      <form id="formReceta">
+        <table class="receta" id="tablaReceta" role="table" aria-label="Tabla de receta">
+          <thead>
+            <tr>
+              <th>Diagnostico</th>
+              <th>Medicamento</th>
+              <th>Dosis</th>
+              <th>Intervalo</th>
+              <th>Observaciones</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoTabla">
+          </tbody>
+        </table>
+
+        <div class="receta-actions">
+          <button type="button" onclick="window.location.href='recetas.html'" class="btn-outline">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar receta</button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+  <script src="atender.js"></script>
 </body>
 </html>

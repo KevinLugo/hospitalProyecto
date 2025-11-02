@@ -3,11 +3,13 @@ document.getElementById("doc").disabled = true;
 document.getElementById("mes").disabled = true;
 document.getElementById("hora").disabled = true;
 document.getElementById("dia").disabled = true;
+
 //un par de bariables globales para barias kositas
 let idPacG = null;
 let idDocG;
 let minDia, minMes, maxDia, maxMes;
 let fechaNo = [];
+let tipoUsrAc = sessionStorage.getItem("tipoUs");
 
 //paso los dias y mes minimos y maximos
 function setFechas(d48, m48, d3, m3) {
@@ -19,13 +21,17 @@ function setFechas(d48, m48, d3, m3) {
 
 //obtengo el id del paciente
 (async function () {
-  //aca obttuve la id desde el login
-  const idUsuario = sessionStorage.getItem("idUsuario");
-  if (!idUsuario) {
-    alert("No hay sesión activa. Por favor inicia sesión.");
-    throw new Error("idUsuario no está definido");
+  let idUsuario;
+  //aca obtuve la id desde el login o desde la tabla de usuarios
+  if(tipoUsrAc=="Paciente") {
+    idUsuario = sessionStorage.getItem("idUsuario");
+  } else if(tipoUsrAc=="Empleado" || tipoUsrAc=="Admin"){
+    idUsuario = sessionStorage.getItem("idUsuario2");
   }
-
+  if (!idUsuario) {
+      alert("No hay sesion activa. Por favor inicia sesion");
+      throw new Error("idUsuario no esta definido");
+  }
   //aca busco el id del pac
   try {
     const idPa = await fetch("http://localhost:5000/api/idPac", {
@@ -37,7 +43,7 @@ function setFechas(d48, m48, d3, m3) {
     idPacG = idPac.idPac;
   } catch (err) {
     console.error("Error en la solicitud:", err);
-    alert("Error al consultar los datos del pac.");
+    alert("Error al consultar los datos del paciente");
   }
 })();
 
@@ -69,9 +75,9 @@ document.getElementById("esp").addEventListener("change", async function () {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idPac: idPacG }),
     });
-    const noDocs = await respNo.json(); // array de objetos con propiedad `cedula`
+    const noDocs = await respNo.json();
 
-    //convertimos cedulas a set nose porke para k les miento
+    //convertimos cedulas a set para ponerlas en una lista
     const noCedulas = new Set(noDocs.map((d) => d.cedula));
 
     //kitamos los docs que ya tengan cita con el paciente
@@ -122,7 +128,7 @@ document.getElementById("esp").addEventListener("change", async function () {
 document.getElementById("doc").addEventListener("change", async function () {
   const cedula = this.value;
   try {
-    // 1. Obtener horario
+    //obtenemos el orario del doc
     const response = await fetch("http://localhost:5000/api/horario", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -132,7 +138,7 @@ document.getElementById("doc").addEventListener("change", async function () {
     if (!data || data.length === 0) return;
     const horario = data[0];
 
-    // 2. Obtener fechas ocupadas
+    //obtenemos fechas onde el doc nopueda
     const respOcupado = await fetch("http://localhost:5000/api/nonoFecha", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -140,24 +146,25 @@ document.getElementById("doc").addEventListener("change", async function () {
     });
     const ocupados = await respOcupado.json();
 
-    // Guardamos fechaC y horaCita en una lista
+    //guardamos fechaC y horaCita en una lista
     fechaNo = ocupados.map((cita) => ({
-      fecha: cita.fechaR.split("T")[0], // YYYY-MM-DD
+      fecha: cita.fechaR.split("T")[0],
       hora: cita.horaCita,
     }));
 
-    // 3. Llenar selects
+    //llenamos seleks
     setFechas(horario.d48, horario.m48, horario.d3, horario.m3);
     setHora(horario.horaEnt, horario.horaSal);
     setMes(horario.m48, horario.m3);
   } catch (err) {
+
     console.error("Error al obtener horario o citas ocupadas:", err);
   }
 });
 
 //aca es para que cuando seleccione el mes le ponga los dias completos del mes
 document.getElementById("mes").addEventListener("change", function () {
-  const mesVal = parseInt(this.value); // el mes que eligió el usuario
+  const mesVal = parseInt(this.value); //el mes que eligio el usuario
   let diaInicio, diaFin;
   if (mesVal === minMes && mesVal === maxMes) {
     diaInicio = minDia;
@@ -174,8 +181,8 @@ document.getElementById("mes").addEventListener("change", function () {
   }
   //hace la funcion de que obtiene los dias del mes
   function diaMes(mes) {
-    const year = new Date().getFullYear(); // ajusta si manejas otro año
-    return new Date(year, mes, 0).getDate(); // mes 1-12, devuelve los días del mes
+    const year = new Date().getFullYear(); //ajusta si manejas otro año
+    return new Date(year, mes, 0).getDate(); //mes 1-12, devuelve los dias del mes
   }
   //manda a llamar la funcion dias y le pone los dias
   setDia(diaInicio, diaFin);
@@ -185,26 +192,42 @@ document.getElementById("mes").addEventListener("change", function () {
 function setMes(mesInicio, mesFin) {
   const selectMes = document.getElementById("mes");
   selectMes.innerHTML = "";
-  // agregamos opsiones para k no esplote
+
+  //opsion por defecto
   const defult = document.createElement("option");
   defult.value = "";
   defult.textContent = "Opciones:";
   defult.disabled = true;
   defult.selected = true;
   selectMes.appendChild(defult);
-  //for chido para meter meses
-  for (let m = mesInicio; m <= mesFin; m++) {
-    const option = document.createElement("option");
-    option.value = m;
-    option.textContent = new Date(0, m - 1).toLocaleString("default", {
-      month: "long",
-    });
-    selectMes.appendChild(option);
+
+  //por si  el rango cruza el año, por ejemplo noviembre -> enero
+  if (mesInicio > mesFin) {
+    for (let m = mesInicio; m <= 12; m++) {
+      agregarMes(selectMes, m);
+    }
+    for (let m = 1; m <= mesFin; m++) {
+      agregarMes(selectMes, m);
+    }
+  } else {
+    for (let m = mesInicio; m <= mesFin; m++) {
+      agregarMes(selectMes, m);
+    }
   }
 
   selectMes.disabled = false;
   document.getElementById("dia").disabled = false;
 }
+
+function agregarMes(select, m) {
+  const option = document.createElement("option");
+  option.value = m;
+  option.textContent = new Date(0, m - 1).toLocaleString("default", {
+    month: "long",
+  });
+  select.appendChild(option);
+}
+
 
 //aki pone los dias funsion
 function setDia(diaInicio, diaFin) {
@@ -213,7 +236,7 @@ function setDia(diaInicio, diaFin) {
   if (diaInicio > diaFin) {
     [diaInicio, diaFin] = [diaFin, diaInicio];
   }
-  // agregamos opsiones para k no esplote
+  //agregamos opsiones para k no esplote
   const defult = document.createElement("option");
   defult.value = "";
   defult.textContent = "Opciones:";
@@ -303,7 +326,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
     return;
   }
 
-  // Fecha límite de pago y fecha de cita (ambas iguales)
+  //fecha limite de pago y fecha de cita (ambas iguales)
   const fechaCita = `${año}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`;
 
   const ahora = new Date();
@@ -331,7 +354,7 @@ document.getElementById("boton2").addEventListener("click", async () => {
     console.error("Error al obtener ID de cita:", err);
     return;
   }
-  // Verificar si ya existe una cita para esa hora
+  //verifica si ya existe una cita para esa hora
 try {
   const checkRes = await fetch("http://localhost:5000/api/gandalf", {
     method: "POST",
@@ -345,15 +368,15 @@ try {
 
   const data = await checkRes.json();
   if (data.length > 0) {
-    alert("Ya existe una cita para esa hora con este doctor. Elige otra hora.");
-    return; // Detener el flujo
+    alert("Ya existe una cita para esa hora con este doctor, elige otra hora");
+    return;
     }
   } catch (err) {
     console.error("Error al verificar disponibilidad de la hora:", err);
-    alert("Error al verificar disponibilidad. Intenta de nuevo.");
+    alert("Error al verificar disponibilidad. Intenta de nuevo");
     return;
   }
-  // 1. Insertar el pago
+  //inerto pago
   try {
     await fetch("http://localhost:5000/api/regPago", {
       method: "POST",
@@ -362,18 +385,17 @@ try {
       idPago: sigIdPago,
       monto,
       formaPago,
-      limPago: limPagoStr,  // incluye fecha y hora
+      limPago: limPagoStr,
       statPago,
   }),
 });
-console.log("Pago registrado");
   } catch (err) {
     console.error("Error al registrar el pago:", err);
-    alert("No se pudo registrar el pago.");
+    alert("No se pudo registrar el pago");
     return;
   }
 
-  // 2. Insertar la cita
+  //inserta la sita
   try {
     await fetch("http://localhost:5000/api/regCita", {
       method: "POST",
@@ -390,11 +412,20 @@ console.log("Pago registrado");
         esp:esp
       }),
     });
-    alert("¡Cita registrada con éxito!");
+    alert("¡Cita registrada con exito!");
 
     window.location.href = "citas.html";
   } catch (err) {
     console.error("Error al registrar la cita:", err);
-    alert("No se pudo registrar la cita.");
+    alert("No se pudo registrar la cita");
+  }
+});
+
+document.getElementById("boton3").addEventListener("click", (e) => {
+    e.preventDefault();//es para k el a no haga su funcion normal
+    if (tipoUsrAc=="Paciente") {
+    window.location.href = "vistaPac.html";
+  } else if(tipoUsrAc=="Empleado" || tipoUsrAc=="Admin"){
+    window.location.href = "citasRec.html";
   }
 });

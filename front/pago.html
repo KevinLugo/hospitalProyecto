@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Comprobante de Pago</title>
-  <link rel="stylesheet" href="estilo4.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stylePago.css" />
 </head>
 <body>
+  <br>
   <div class="contenedor">
     <h2>Comprobante de Pago</h2>
 
@@ -17,12 +19,12 @@
 
     <div class="campo">
       <label>Especialidad:</label>
-      <p><span id="especialidad">Cardiología</span></p>
+      <p><span id="especialidad">Cardiologia</span></p>
     </div>
 
     <div class="campo">
       <label>Doctor:</label>
-      <p><span id="doctor">Dr. Juan Ramírez</span></p>
+      <p><span id="doctor">Dr. Juan Ramirez</span></p>
     </div>
 
     <div class="campo">
@@ -43,27 +45,25 @@
     <div class="campo">
       <label for="formaPago">Forma de Pago:</label>
       <select id="formaPago">
-        <option value="">Elija una opción...</option>
-        <option value="debito">Débito</option>
-        <option value="credito">Crédito</option>
+        <option value="">Elija una opcion...</option>
+        <option value="debito">Debito</option>
+        <option value="credito">Credito</option>
       </select>
     </div>
 
     <div class="campo">
-      <label>Límite para realizar el pago:</label>
+      <label>Limite para realizar el pago:</label>
       <p><span id="limitePago">28/06/2025</span></p>
     </div>
 
     <div class="acciones">
+      <button>Regresar</button>
       <button id="btnPagar">Pagar</button>
+      <a href="citas.html">
+     </a>
     </div>
   </div>
-
-  <div class="acciones">
-  <a href="vistaPac.html">
-    <button>Regresar</button>
-  </a>
-</div>
+  <br><br>
 <script src="pago.js"></script>
 </body>
 </html>
