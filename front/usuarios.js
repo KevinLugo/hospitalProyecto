@@ -264,19 +264,21 @@ function mostrarResultados(tipo, datos) {
   //rous
   datos.forEach((dato) => {
     const row = document.createElement("tr");
-
     baseCols.forEach((col) => {
-      const td = document.createElement("td");
-      const key = baseMap[col];
-      let valor = dato[key] || "";
-
-      if (key === "fechaNac" && valor) {
-        valor = new Date(valor).toISOString().split("T")[0];
-      }
-
-      td.textContent = valor;
-      row.appendChild(td);
-    });
+    const td = document.createElement("td");
+    const key = baseMap[col];
+    let valor = dato[key] || "";
+    //fechaFormato
+    if (key === "fechaNac" && valor) {
+      valor = new Date(valor).toISOString().split("T")[0];
+    }
+    //nop
+    if (key === "contra" && tipo === "recepcionista" && tipoUsrAc === "Empleado") {
+      valor = "********";
+    }
+    td.textContent = valor;
+    row.appendChild(td);
+  });
 
     extraCols.forEach((col) => {
       const td = document.createElement("td");

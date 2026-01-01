@@ -82,3 +82,7 @@ function formatearSoloFecha(fechaISO) {
     year: "numeric"
   });
 }
+
+document.getElementById("btnCancelar").addEventListener("click", function () {
+    window.location.href = "citas.html";
+});
